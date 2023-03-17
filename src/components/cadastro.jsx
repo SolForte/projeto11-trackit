@@ -17,7 +17,6 @@ export default function Cadastro(){
     return(
         <Main>
             <img src={logo} alt="TrackIt Logo"/>
-            <FormContainer>
                 <form onSubmit={performCadastro}>
                     <input
                         placeholder="email"
@@ -47,11 +46,10 @@ export default function Cadastro(){
                         onChange={(event) => setCadastroFoto(event.target.value)}
                         required
                     />
-                    <button data-test="book-seat-btn" type="submit">
+                    <button type="submit">
                         Cadastrar
                     </button>
                 </form>
-            </FormContainer>
             <Link to="/">
                 Já tem uma conta? Faça login!
             </Link>
@@ -68,9 +66,14 @@ const Main = styled.div`
         width: 180px;
     }
     a{
+        margin-top: 25px;
         text-decoration: none;
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 13.976px;
+        line-height: 17px;
+        text-align: center;
+        text-decoration-line: underline;
+        color: #52B6FF;
     }
 `
-
-const FormContainer = styled.div``
-

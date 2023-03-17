@@ -15,7 +15,6 @@ export default function Login(){
     return(
         <Main>
             <img src={logo} alt="TrackIt Logo"/>
-            <FormContainer>
                 <form onSubmit={performLogin}>
                     <input
                         placeholder="email"
@@ -31,11 +30,10 @@ export default function Login(){
                         onChange={(event) => setFormPassword(event.target.value)}
                         required
                     />
-                    <button data-test="book-seat-btn" type="submit">
+                    <button type="submit">
                         Entrar
                     </button>
                 </form>
-            </FormContainer>
             <Link to="/cadastro">
                 Não tem uma conta? Cadastre-se!
             </Link>
@@ -52,9 +50,14 @@ const Main = styled.div`
         width: 180px;
     }
     a{
+        margin-top: 25px;
         text-decoration: none;
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 13.976px;
+        line-height: 17px;
+        text-align: center;
+        text-decoration-line: underline;
+        color: #52B6FF;
     }
 `
-
-const FormContainer = styled.div``
-
