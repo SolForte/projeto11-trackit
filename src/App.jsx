@@ -4,6 +4,7 @@ import Habitos from "./components/habitos";
 import Historico from "./components/historico";
 import Hoje from "./components/hoje";
 import Login from "./components/login";
+import styled from "styled-components";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/hoje" element={<Hoje/>}/>
         <Route path="/historico" element={<Historico/>}/>
       </Routes>
-    </BrowserRouter>  
+    </BrowserRouter>
   );
 }
 
