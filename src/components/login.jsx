@@ -37,7 +37,7 @@ export default function Login(){
                 </form>
             </FormContainer>
             <Link to="/cadastro">
-                Não tem uma conta? Cadastre-se
+                Não tem uma conta? Cadastre-se!
             </Link>
         </Main> 
     )
