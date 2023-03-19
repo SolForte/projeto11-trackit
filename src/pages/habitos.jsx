@@ -27,7 +27,7 @@ export default function Habitos(){
         )
         habits.catch(
             (resposta) => {
-                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
+                //alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
                 navigate("/")
             }
         )
@@ -36,6 +36,15 @@ export default function Habitos(){
     return(
         <Main>
             <Header/>
+            <Content>
+                <Criar>
+                <p>Meus Hábitos</p>
+                <button>
+                    <p>+</p>
+                </button>
+                </Criar>
+                
+            </Content>
             <Footer/>
         </Main>
     )
@@ -48,4 +57,45 @@ const Main = styled.div`
     background-color: #E5E5E5;
     width: 100vw;
     height: 100vh;
+`
+
+const Content = styled.div`
+    margin-top: 92px;
+    display: flex;
+    justify-content: center;
+`
+
+const Criar = styled.div`
+    width: 375px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 18px 0px 17px;
+    p{
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 22.976px;
+        line-height: 29px;
+        color: #126BA5;
+    }
+    button{
+        width: 40px;
+        height: 35px;
+        background: #52B6FF;
+        border-radius: 4.63636px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{
+            font-family: 'Lexend Deca', sans-serif;
+            font-weight: 400;
+            font-size: 26.976px;
+            line-height: 34px;
+            color: #FFFFFF;
+            box-sizing: border-box;
+            padding-bottom: 4px;
+        }
+    }
 `
