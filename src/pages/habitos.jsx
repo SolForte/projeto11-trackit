@@ -6,6 +6,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { weekdays } from "../constants/weekdays";
+import WeekdayButtons from "../components/botoes";
 
 export default function Habitos(){
 
@@ -15,17 +17,19 @@ export default function Habitos(){
     const [habitsList, setHabitsList] = useState([]);
 
     const [criacao, setCriacao] = useState(false);
+
+    const [semana, setSemana] = useState(weekdays);
+    const [diasSelecionados, setDiasSelecionados] = useState([]);
+    
     
     useEffect(()=>{
         
-        console.log(userData);
         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
 
         const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, config);
         habits.then(
             (resposta) => {
-                setHabitsList(resposta.data)
-                console.log(resposta.data)
+                setHabitsList(resposta.data);
             }
         )
         habits.catch(
@@ -52,7 +56,35 @@ export default function Habitos(){
 
           
                 {(criacao === true)
-                ? <p>GET CREATIN'</p>
+                ? <Criacao>
+
+                <input 
+                    placeholder="nome do hábito"
+                />
+                
+                <ButtonEncloserContainer>
+
+                    {semana.map(
+                        (value, index) => {
+
+                        return(
+                            <WeekdayButtons 
+                                key={index} 
+                                dia={value.dia} 
+                                index={index}
+                                status={value.status}
+                                diasSelecionados={diasSelecionados}
+                                setDiasSelecionados={setDiasSelecionados}
+                            />
+                            )
+                        }
+                    )}
+
+                </ButtonEncloserContainer>
+
+
+
+                </Criacao>
                 : <></>
                 }
 
@@ -69,6 +101,38 @@ export default function Habitos(){
         </Main>
     )
 }
+
+const ButtonEncloserContainer = styled.div`
+    display: flex;
+    gap: 4px;
+    box-sizing: border-box;
+    padding: 0px 18px 0px 19px;
+`
+
+const Criacao = styled.div`
+    margin: 20px 18px 0px 17px;
+    width: 340px;
+    height: 180px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    input{
+        margin: 18px 18px 8px 19px;
+        box-sizing: border-box;
+        width: 303px;
+        height: 45px;
+        background: #FFFFFF;
+        border: 1px solid #D5D5D5;
+        border-radius: 5px;
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #666666;
+        ::placeholder{
+            color: #DBDBDB;  
+        }
+    }
+`
 
 const Main = styled.div`
     display: flex;
