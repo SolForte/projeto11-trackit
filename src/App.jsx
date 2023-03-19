@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Cadastro from "./components/cadastro";
-import Habitos from "./components/habitos";
-import Historico from "./components/historico";
-import Hoje from "./components/hoje";
-import Login from "./components/login";
+import Cadastro from "./pages/cadastro";
+import Habitos from "./pages/habitos";
+import Historico from "./pages/historico";
+import Hoje from "./pages/hoje";
+import Login from "./pages/login";
 import styled from "styled-components";
 
 function App() {

@@ -19,28 +19,28 @@ export default function Cadastro(){
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performCadastro}>
                     <input
-                        placeholder="email"
+                        placeholder=" email"
                         type="email"
                         value={cadastroEmail}
                         onChange={(event) => setCadastroEmail(event.target.value)}
                         required
                     />
                     <input
-                        placeholder="senha"
+                        placeholder=" senha"
                         type="password"
                         value={cadastroPassword}
                         onChange={(event) => setCadastroPassword(event.target.value)}
                         required
                     />
                     <input
-                        placeholder="nome"
+                        placeholder=" nome"
                         type="text"
                         value={cadastroNome}
                         onChange={(event) => setCadastroNome(event.target.value)}
                         required
                     />
                     <input
-                        placeholder="foto"
+                        placeholder=" foto"
                         type="url"
                         value={cadastroFoto}
                         onChange={(event) => setCadastroFoto(event.target.value)}

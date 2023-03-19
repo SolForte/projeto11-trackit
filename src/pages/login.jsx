@@ -1,14 +1,21 @@
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { createContext, useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
 
     const [formEmail, setFormEmail] = useState();
     const [formPassword, setFormPassword] = useState();
+    const UserContext = createContext();
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    function performLogin (){
+    function performLogin (event){
+        event.preventDefault();
+        setLoading(true);
+        const corpo = { email: formPassword, password: formPassword};
+        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, corpo)
         return ("")
     }
 
@@ -17,14 +24,14 @@ export default function Login(){
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performLogin}>
                     <input
-                        placeholder="email"
+                        placeholder=" email"
                         type="email"
                         value={formEmail}
                         onChange={(event) => setFormEmail(event.target.value)}
                         required
                     />
                     <input
-                        placeholder="senha"
+                        placeholder=" senha"
                         type="password"
                         value={formPassword}
                         onChange={(event) => setFormPassword(event.target.value)}
