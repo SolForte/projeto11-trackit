@@ -33,4 +33,9 @@ const Dia = styled.button`
     color: ${({ statusBotao }) => statusBotao ? "#FFFFFF" : "#dbdbdb"};
     border: 1px solid #D5D5D5;
     border-radius: 5px;
+
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
 `

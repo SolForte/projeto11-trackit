@@ -58,6 +58,8 @@ export default function Habitos(){
                 {(criacao === true)
                 ? <Criacao>
 
+                
+
                 <input 
                     placeholder="nome do hábito"
                 />
@@ -82,6 +84,12 @@ export default function Habitos(){
 
                 </ButtonEncloserContainer>
 
+                <CancelAcceptContainer>
+                        <Cancelar>Cancelar</Cancelar>
+                        <Salvar>Salvar</Salvar>
+                </CancelAcceptContainer>
+
+                
 
 
                 </Criacao>
@@ -102,6 +110,38 @@ export default function Habitos(){
     )
 }
 
+
+const CancelAcceptContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 15px;
+    right: 16px;
+    button{
+        outline: none;
+        border: none;
+        width: 84px;
+        height: 35px;
+        border-radius: 4.63636px;
+        font-size: 15.976px;
+        line-height: 20px;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+`
+
+const Cancelar = styled.button`
+    color: #52B6FF;
+    background-color: transparent;
+    margin-right: 23px;
+`
+const Salvar = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    background-color: #52B6FF;`
+    
 const ButtonEncloserContainer = styled.div`
     display: flex;
     gap: 4px;
@@ -115,6 +155,7 @@ const Criacao = styled.div`
     height: 180px;
     background: #FFFFFF;
     border-radius: 5px;
+    position: relative;
     input{
         margin: 18px 18px 8px 19px;
         box-sizing: border-box;
