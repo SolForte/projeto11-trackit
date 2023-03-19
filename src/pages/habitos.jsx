@@ -23,6 +23,7 @@ export default function Habitos(){
         habits.then(
             (resposta) => {
                 setHabitsList(resposta.data)
+                console.log(resposta.data)
             }
         )
         habits.catch(
@@ -43,7 +44,13 @@ export default function Habitos(){
                     <p>+</p>
                 </button>
                 </Criar>
-                
+                {(habitsList.length === 0) 
+                ? <Tip>
+                    <p>
+                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+                    </p>
+                </Tip> 
+                : <></>}
             </Content>
             <Footer/>
         </Main>
@@ -62,7 +69,8 @@ const Main = styled.div`
 const Content = styled.div`
     margin-top: 92px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
 
 const Criar = styled.div`
@@ -97,5 +105,18 @@ const Criar = styled.div`
             box-sizing: border-box;
             padding-bottom: 4px;
         }
+    }
+`
+
+const Tip = styled.div`
+    width: 375px;
+    box-sizing: border-box;
+    padding: 28px 20px 0px 17px;
+    p{
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 17.976px;
+        line-height: 22px;
+        color: #666666
     }
 `
