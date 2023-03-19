@@ -60,7 +60,7 @@ export default function Login(){
                         disabled={loading}
                     />
                     <button type="submit" disabled={loading}>
-                        {loading ? <Loading/> : "Cadastrar"}
+                        {loading ? <Loading/> : "Entrar"}
                     </button>
                 </form>
             <Link to="/cadastro">
@@ -88,5 +88,11 @@ const Main = styled.div`
         text-align: center;
         text-decoration-line: underline;
         color: #52B6FF;
+    }
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 `
