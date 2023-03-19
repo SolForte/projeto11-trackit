@@ -7,7 +7,7 @@ import Loading from "../constants/loading";
 
 export default function Cadastro(){
 
-    const stringLiteral = "asdasd"
+    const stringLiteral = ""
 
     const [cadastroEmail, setCadastroEmail] = useState(stringLiteral);
     const [cadastroPassword, setCadastroPassword] = useState(stringLiteral);
