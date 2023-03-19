@@ -13,7 +13,7 @@ export default function Cadastro(){
     const [cadastroPassword, setCadastroPassword] = useState(stringLiteral);
     const [cadastroNome, setCadastroNome] = useState(stringLiteral);
     const [cadastroFoto, setCadastroFoto] = useState(stringLiteral);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     function performCadastro (event){

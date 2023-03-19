@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
             ::placeholder{
                 color: #DBDBDB;
             }
+            :disabled{
+                background: #F2F2F2;
+                color: #AFAFAF;
+            }
         }
         button{
             width: 303px;
