@@ -81,48 +81,49 @@ export default function Habitos(){
 
           
                 {(criacao === true)
-                ? <Criacao>
+                ? 
+                <Criacao>
 
-                
+                    
 
-                <input 
-                    placeholder="Nome do hábito"
-                    value={habitName}
-                    onChange={(event) => setHabitName(event.target.value)}
-                />
-                
-                <ButtonEncloserContainer>
+                    <input 
+                        placeholder="Nome do hábito"
+                        value={habitName}
+                        onChange={(event) => setHabitName(event.target.value)}
+                    />
+                    
+                    <ButtonEncloserContainer>
 
-                    {semana.map(
-                        (value, index) => {
+                        {semana.map(
+                            (value, index) => {
 
-                        return(
-                            <WeekdayButtons 
-                                key={index} 
-                                dia={value.dia} 
-                                index={index}
-                                status={value.status}
-                                diasSelecionados={diasSelecionados}
-                                setDiasSelecionados={setDiasSelecionados}
-                            />
-                            )
-                        }
-                    )}
+                            return(
+                                <WeekdayButtons 
+                                    key={index} 
+                                    dia={value.dia} 
+                                    index={index}
+                                    status={value.status}
+                                    diasSelecionados={diasSelecionados}
+                                    setDiasSelecionados={setDiasSelecionados}
+                                />
+                                )
+                            }
+                        )}
 
-                </ButtonEncloserContainer>
+                    </ButtonEncloserContainer>
 
-                <CancelAcceptContainer>
-                        <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
-                        <Salvar
-                            onClick={
-                                () => {
-                                setCriacao(false)
-                                criar()
-                                }
-                            }>Salvar</Salvar>
-                </CancelAcceptContainer>
+                    <CancelAcceptContainer>
+                            <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
+                            <Salvar
+                                onClick={
+                                    () => {
+                                    setCriacao(false)
+                                    criar()
+                                    }
+                                }>Salvar</Salvar>
+                    </CancelAcceptContainer>
 
-                
+                    
 
 
                 </Criacao>
@@ -136,7 +137,8 @@ export default function Habitos(){
                     </p>
                 </Tip> 
                 :
-                <HabitsContainer>
+            
+            <HabitsContainer>
                 {habitsList.map(
                     (element, index) => {
                         
@@ -173,7 +175,7 @@ export default function Habitos(){
                 
                 
                 
-                </HabitsContainer>} 
+            </HabitsContainer>} 
 
             </Content>
             <Footer/>
@@ -227,15 +229,12 @@ const HabitBox = styled.div`
 `
 
 const HabitsContainer = styled.div`
-    width: 375px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    box-sizing: border-box;
     margin-top: 22px;
-    padding-left:17px;
-    padding-right:18px;
+    //margin bottom here?
 `
 
 const CancelAcceptContainer = styled.div`
@@ -277,7 +276,7 @@ const ButtonEncloserContainer = styled.div`
 `
 
 const Criacao = styled.div`
-    margin: 20px 18px 0px 17px;
+    margin-top: 20px;
     width: 340px;
     height: 180px;
     background: #FFFFFF;
