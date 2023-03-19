@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../constants/loading";
-import { useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Login(){
@@ -29,7 +28,7 @@ export default function Login(){
             (resposta) => {
                 setUserData(resposta.data);
                 setLoading(false);
-                navigate("/habitos")
+                navigate("/hoje")
             }
         )
         login.catch(

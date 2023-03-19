@@ -308,10 +308,11 @@ const Main = styled.div`
     background-color: #E5E5E5;
     width: 100vw;
     height: 100vh;
+    margin-top: 70px;
+    padding-top: 22px;
 `
 
 const Content = styled.div`
-    margin-top: 92px;
     display: flex;
     align-items: center;
     flex-direction: column;
