@@ -12,8 +12,10 @@ export default function Habitos(){
     const {userData} = useContext(UserContext);
     const navigate = useNavigate();
 
-    const [habitsList, setHabitsList] = useState([])
+    const [habitsList, setHabitsList] = useState([]);
 
+    const [criacao, setCriacao] = useState(false);
+    
     useEffect(()=>{
         
         console.log(userData);
@@ -34,23 +36,34 @@ export default function Habitos(){
         )
     },[])
 
+    function criar(){}
+
+
     return(
         <Main>
             <Header/>
             <Content>
-                <Criar>
+                <CreationMenu>
                 <p>Meus Hábitos</p>
-                <button>
+                <button onClick={()=>setCriacao(true)}>
                     <p>+</p>
                 </button>
-                </Criar>
+                </CreationMenu>
+
+          
+                {(criacao === true)
+                ? <p>GET CREATIN'</p>
+                : <></>
+                }
+
                 {(habitsList.length === 0) 
                 ? <Tip>
                     <p>
                     Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                     </p>
                 </Tip> 
-                : <></>}
+                : <></>} 
+
             </Content>
             <Footer/>
         </Main>
@@ -73,7 +86,7 @@ const Content = styled.div`
     flex-direction: column;
 `
 
-const Criar = styled.div`
+const CreationMenu = styled.div`
     width: 375px;
     display: flex;
     justify-content: space-between;
