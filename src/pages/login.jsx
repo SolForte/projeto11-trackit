@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-import { createContext, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../constants/loading";
+import { useEffect } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Login(){
 
@@ -13,6 +15,9 @@ export default function Login(){
     const [formEmail, setFormEmail] = useState(emailLiteral);
     const [formPassword, setFormPassword] = useState(passwordLiteral);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const {setUserData} = useContext(UserContext);
 
     function performLogin (event){
         event.preventDefault();
@@ -21,13 +26,13 @@ export default function Login(){
         const login = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, corpo);
         login.then(
             (resposta) => {
-                console.log(resposta)
+                setUserData(resposta.data);
                 setLoading(false);
+                navigate("/habitos")
             }
         )
         login.catch(
             (resposta) => {
-                console.log(resposta);
                 setLoading(false);
                 alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
             }

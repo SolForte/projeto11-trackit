@@ -4,11 +4,16 @@ import Habitos from "./pages/habitos";
 import Historico from "./pages/historico";
 import Hoje from "./pages/hoje";
 import Login from "./pages/login";
-import styled from "styled-components";
+import { useState } from "react";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
+
+  const [userData, setUserData ] = useState([]);
+
   return (
     <BrowserRouter>
+      <UserContext.Provider value={{userData, setUserData}}>
       <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/cadastro" element={<Cadastro/>}/>
@@ -16,6 +21,7 @@ function App() {
         <Route path="/hoje" element={<Hoje/>}/>
         <Route path="/historico" element={<Historico/>}/>
       </Routes>
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }
