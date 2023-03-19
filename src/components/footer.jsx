@@ -27,6 +27,7 @@ const Container = styled.div`
     justify-content: center;
     position: fixed;
     bottom: 0px;
+    z-index: 1;
 `
 
 const SubContainer = styled.div`

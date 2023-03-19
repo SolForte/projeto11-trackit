@@ -5,6 +5,9 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         justify-content: center;
     }
+    button{
+        cursor:pointer;
+    }
     form{
         display: flex;
         flex-direction: column;

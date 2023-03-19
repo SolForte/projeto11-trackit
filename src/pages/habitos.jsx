@@ -24,13 +24,17 @@ export default function Habitos(){
     const [habitName, setHabitName] = useState("")
     
     useEffect(()=>{
-        
+        fetchHabits()
+    },[])
+
+    function fetchHabits(){
         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
 
         const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, config);
         habits.then(
             (resposta) => {
                 setHabitsList(resposta.data);
+                console.log(habitsList)
             }
         )
         habits.catch(
@@ -39,9 +43,29 @@ export default function Habitos(){
                 navigate("/")
             }
         )
-    },[])
+    }
 
-    function criar(){}
+    function criar(){
+        const corpo = {
+            name: habitName,
+            days: diasSelecionados
+        }
+        
+        const config = {headers: {Authorization: `Bearer ${userData.token}`}};
+
+        setDiasSelecionados([])
+        setHabitName([])
+
+        const create = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, corpo, config)
+        create.then(
+            (resposta) => {
+                fetchHabits()
+            }
+        )
+        create.catch(
+            (resposta) => {}
+        )
+    }
 
 
     return(
@@ -89,7 +113,13 @@ export default function Habitos(){
 
                 <CancelAcceptContainer>
                         <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
-                        <Salvar>Salvar</Salvar>
+                        <Salvar
+                            onClick={
+                                () => {
+                                setCriacao(false)
+                                criar()
+                                }
+                            }>Salvar</Salvar>
                 </CancelAcceptContainer>
 
                 
@@ -105,7 +135,45 @@ export default function Habitos(){
                     Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                     </p>
                 </Tip> 
-                : <></>} 
+                :
+                <HabitsContainer>
+                {habitsList.map(
+                    (element, index) => {
+                        
+
+                        return(
+                            <HabitBox key={index}>
+                                
+                                    <HabitName>{element.name}</HabitName>
+
+                                    <HabitSemana>
+
+                                    {semana.map(
+                                            (dia, index) => (
+                                                <HabitDias 
+                                                    statusBotao={element.days.includes(index)}
+                                                    key={index}>
+                                                        {dia.dia}
+                                                </HabitDias>
+                                            )
+                                        )}
+
+                                    </HabitSemana>
+
+
+                                
+                                <Lixo>
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </Lixo>
+                            </HabitBox>
+                        )
+                    }
+
+                )}
+                
+                
+                
+                </HabitsContainer>} 
 
             </Content>
             <Footer/>
@@ -113,6 +181,62 @@ export default function Habitos(){
     )
 }
 
+const HabitSemana = styled.div`
+    display: flex;
+    gap: 4px;
+    margin: 0px 0px 15px 14px;
+`
+
+const HabitDias = styled.button`
+        width: 30px;
+        height: 30px;
+        background-color: ${({ statusBotao }) => statusBotao ? "#cfcfcf" : "#FFFFFF"};
+        color: ${({ statusBotao }) => statusBotao ? "#FFFFFF" : "#dbdbdb"};
+        border: 1px solid #D5D5D5;
+        border-radius: 5px;
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+`
+
+const HabitName = styled.p`
+    width: 208px;
+    height: 25px;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+    color: #666666;
+    margin: 13px 0px 10px 15px;
+`
+
+const Lixo = styled.div`
+    position: absolute;
+    top: 11px;
+    right: 10px;
+`
+
+const HabitBox = styled.div`
+    width: 340px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+`
+
+const HabitsContainer = styled.div`
+    width: 375px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 22px;
+    padding-left:17px;
+    padding-right:18px;
+`
 
 const CancelAcceptContainer = styled.div`
     display: flex;
