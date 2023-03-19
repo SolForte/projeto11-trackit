@@ -3,21 +3,35 @@ import logo from "../assets/logo.png";
 import { createContext, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loading from "../constants/loading";
 
 export default function Login(){
 
-    const [formEmail, setFormEmail] = useState();
-    const [formPassword, setFormPassword] = useState();
-    const UserContext = createContext();
+    const emailLiteral = "sol@gmail.com"
+    const passwordLiteral = "123456"
+
+    const [formEmail, setFormEmail] = useState(emailLiteral);
+    const [formPassword, setFormPassword] = useState(passwordLiteral);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     function performLogin (event){
         event.preventDefault();
         setLoading(true);
-        const corpo = { email: formPassword, password: formPassword};
-        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, corpo)
-        return ("")
+        const corpo = { email: formEmail, password: formPassword};
+        const login = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, corpo);
+        login.then(
+            (resposta) => {
+                console.log(resposta)
+                setLoading(false);
+            }
+        )
+        login.catch(
+            (resposta) => {
+                console.log(resposta);
+                setLoading(false);
+                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
+            }
+        )
     }
 
     return(
@@ -30,6 +44,7 @@ export default function Login(){
                         value={formEmail}
                         onChange={(event) => setFormEmail(event.target.value)}
                         required
+                        disabled={loading}
                     />
                     <input
                         placeholder=" senha"
@@ -37,9 +52,10 @@ export default function Login(){
                         value={formPassword}
                         onChange={(event) => setFormPassword(event.target.value)}
                         required
+                        disabled={loading}
                     />
-                    <button type="submit">
-                        Entrar
+                    <button type="submit" disabled={loading}>
+                        {loading ? <Loading/> : "Cadastrar"}
                     </button>
                 </form>
             <Link to="/cadastro">

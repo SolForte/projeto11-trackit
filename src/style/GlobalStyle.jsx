@@ -41,6 +41,9 @@ const GlobalStyle = createGlobalStyle`
             line-height: 26px;
             text-align: center;
             color: #FFFFFF;
+            :disabled{
+            opacity: 0.7;
+        }
         }
     }
 `

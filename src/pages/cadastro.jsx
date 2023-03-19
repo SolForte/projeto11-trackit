@@ -31,13 +31,11 @@ export default function Cadastro(){
         const cadastro = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`, corpo);
         cadastro.then(
             (resposta) => {
-                console.log(resposta);
                 navigate("/");
             }
         )
         cadastro.catch(
             (resposta) => {
-                console.log(resposta);
                 setLoading(false);
                 alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
             }
@@ -115,8 +113,5 @@ const Main = styled.div`
         justify-content: center;
         align-items: center;
         width: 100%;
-        :disabled{
-            opacity: 0.7;
-        }
     }
 `
