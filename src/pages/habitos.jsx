@@ -21,6 +21,7 @@ export default function Habitos(){
     const [semana, setSemana] = useState(weekdays);
     const [diasSelecionados, setDiasSelecionados] = useState([]);
     
+    const [habitName, setHabitName] = useState("")
     
     useEffect(()=>{
         
@@ -61,7 +62,9 @@ export default function Habitos(){
                 
 
                 <input 
-                    placeholder="nome do hábito"
+                    placeholder="Nome do hábito"
+                    value={habitName}
+                    onChange={(event) => setHabitName(event.target.value)}
                 />
                 
                 <ButtonEncloserContainer>
@@ -85,7 +88,7 @@ export default function Habitos(){
                 </ButtonEncloserContainer>
 
                 <CancelAcceptContainer>
-                        <Cancelar>Cancelar</Cancelar>
+                        <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
                         <Salvar>Salvar</Salvar>
                 </CancelAcceptContainer>
 

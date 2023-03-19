@@ -30,7 +30,7 @@ export default function Cadastro(){
 
         const cadastro = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`, corpo);
         cadastro.then(
-            (resposta) => {
+            () => {
                 navigate("/");
             }
         )

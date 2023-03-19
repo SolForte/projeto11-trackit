@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function WeekdayButtons(props){
     const {dia, index, status, diasSelecionados, setDiasSelecionados} = props;
-
     const [statusBotao, setStatusBotao] = useState(status);
+
+    useEffect(
+        ()=>{
+            if (diasSelecionados.includes(index)){
+                setStatusBotao(!statusBotao);
+            }
+        }
+    ,[])
 
     function SelecionarDia(index, diasSelecionados, setDiasSelecionados){
         setStatusBotao(!statusBotao);
