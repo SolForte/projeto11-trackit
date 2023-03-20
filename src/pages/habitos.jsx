@@ -8,6 +8,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { weekdays } from "../constants/weekdays";
 import WeekdayButtons from "../components/botoes";
+import Loading from "../constants/loading";
 
 export default function Habitos(){
 
@@ -22,6 +23,8 @@ export default function Habitos(){
     const [diasSelecionados, setDiasSelecionados] = useState([]);
     
     const [habitName, setHabitName] = useState("")
+
+    const [loading, setLoading] = useState(false);
     
     useEffect(()=>{
         fetchHabits()
@@ -45,6 +48,7 @@ export default function Habitos(){
     }
 
     function criar(){
+        setLoading(true);
         const corpo = {
             name: habitName,
             days: diasSelecionados
@@ -58,11 +62,16 @@ export default function Habitos(){
         const create = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, corpo, config)
         create.then(
             (resposta) => {
-                fetchHabits()
+                fetchHabits();
+                setLoading(false);
+                setCriacao(false)
             }
         )
         create.catch(
-            (resposta) => {}
+            (resposta) => {
+                setLoading(false);
+                setCriacao(false)
+            }
         )
     }
 
@@ -116,10 +125,13 @@ export default function Habitos(){
                             <Salvar
                                 onClick={
                                     () => {
-                                    setCriacao(false)
                                     criar()
                                     }
-                                }>Salvar</Salvar>
+                                }
+                                disabled={loading}    
+                            >
+                                    {loading ? <Loading/> : "Salvar"}
+                            </Salvar>
                     </CancelAcceptContainer>
 
                     
