@@ -34,7 +34,6 @@ export default function Habitos(){
         habits.then(
             (resposta) => {
                 setHabitsList(resposta.data);
-                console.log(habitsList)
             }
         )
         habits.catch(

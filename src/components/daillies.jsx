@@ -11,11 +11,15 @@ export default function Diarias( {habitsList, setHabitsList} ){
     const {userProgress} = useContext(UserProgress);
     const {userData} = useContext(UserContext);
 
+    console.log(habitsList)
 
     return (
         habitsList.map(
-            (habito) => {
-                function tratamentoDeDados(){
+            (habito, index) => {
+
+                function tratamentoDeDados(event){
+
+                    event.preventDefault();
                     setToggleStatus(true);
                     setCurrent([...current, habito.id]);
 
@@ -23,10 +27,10 @@ export default function Diarias( {habitsList, setHabitsList} ){
                         const body = {}
                         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
                 
-                        const marcar = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}`, body, config);
+                        const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`, body, config);
                         marcar.then(
                             (resposta) => {
-                                setHabitsList(resposta.data);
+                                console.log(resposta)
                                 setToggleStatus(false);
                                 setCurrent([]);
                             }
@@ -39,13 +43,46 @@ export default function Diarias( {habitsList, setHabitsList} ){
                     
 
  
-                    } else {}
+                    } else {
+                        const body = {}
+                        const config = {headers: {Authorization: `Bearer ${userData.token}`}};
+                
+                        const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`, body, config);
+                        marcar.then(
+                            (resposta) => {
+                                setHabitsList(resposta.data);
+                                setToggleStatus(false);
+                                setCurrent([]);
+                            })
+                        marcar.catch(
+                            (resposta) => {
+                                setToggleStatus(false);
+                            }
+                            )
+                    }
                 }
+
+                return (
+                    <div key={index}>
+                        <div>
+                            <p>{habito.name}</p>
+                            <p>Sequência atual: <span>{habito.currentSequence} {habito.currentSequence > 1 ? "dias" :  habito.currentSequence !== 0 ? "dia" : ""}</span></p>
+                            <p>Seu recorde: <span>{habito.highestSequence} {habito.highestSequence > 1 ? "dias" : habito.highestSequence !== 0 ? "dia" : ""}</span></p>
+                        </div>
+                        <button onClick={tratamentoDeDados}>
+                            {toggleStatus !== false && current.includes(habito.id)
+                            ?
+                            <></>
+                            :
+                            <ion-icon name="checkmark"></ion-icon>
+                            }
+                        </button>
+                    </div>
+                )
             }
         )
     )
 }
-
 
 /* 
 
