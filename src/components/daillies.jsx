@@ -22,20 +22,22 @@ export default function Diarias({ habitsList, refresh, setRefresh }) {
 
   function checagem(habito) {
     if (habito.done === false) {
-      marcar(habito);
+      const check = "check"
+      marcar(habito, check);
     } else if (habito.done === true) {
-      desmarcar(habito);
+      const uncheck = "uncheck"
+      marcar(habito, uncheck);
     }
   }
 
-  function marcar(habito) {
+  function marcar(habito, compare) {
     const body = {};
     const config = {
       headers: { Authorization: `Bearer ${userData.token}` },
     };
 
     const check = axios.post(
-      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`,
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/${compare}`,
       body,
       config
     );
@@ -45,27 +47,6 @@ export default function Diarias({ habitsList, refresh, setRefresh }) {
       calculoProgresso(habitsList);
     });
     check.catch((resposta) => {
-      console.log(resposta);
-    });
-  }
-
-  function desmarcar(habito) {
-    const body = {};
-    const config = {
-      headers: { Authorization: `Bearer ${userData.token}` },
-    };
-
-    const uncheck = axios.post(
-      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`,
-      body,
-      config
-    );
-    uncheck.then((resposta) => {
-      console.log(resposta);
-      setRefresh(!refresh);
-      calculoProgresso(habitsList);
-    });
-    uncheck.catch((resposta) => {
       console.log(resposta);
     });
   }
