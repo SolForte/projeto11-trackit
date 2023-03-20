@@ -153,7 +153,7 @@ const Sequence = styled.span`
 `;
 const RecordSequence = styled.span`
     color: ${(props) =>
-      props.atual > 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};
+      props.atual != 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};
 `;
 
 const Titulo = styled.p`

@@ -118,8 +118,7 @@ const Main = styled.div`
     flex-direction: column;
     align-items: center;
 `;
-const TopMenu = styled.div`
-`;
+
 const DataHoje = styled.p`
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
