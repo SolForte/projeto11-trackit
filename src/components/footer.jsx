@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useContext } from "react"
 import { UserProgress } from "../contexts/UserProgress"
 import { CircularProgressbar } from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function Footer(){
 
@@ -19,19 +20,19 @@ export default function Footer(){
                 <Link to="/hoje">
 
                     <Circular>
-                        <CircularProgressbar value={userProgress} styles={
-                        {
-                        path:{stroke: "#ffffff"},
-                        text: 
-                            {
-                            fill: "#ffffff", 
-                            fontSize: "17px", 
-                            fontFamily: 'Lexend Deca',
-                            fontWeight: "400"
-                        }}
-                        }
+                        <CircularProgressbar 
+                            value={userProgress} 
+                            text="Hoje" 
+                            styles={
+                                    {
+                                    path:{stroke: "#ffffff"},
+                                    trail:{stroke: "#52B6FF"},
+                                    text: 
+                                        {fill: "#ffffff",
+                                        fontFamily: 'Lexend Deca'
+                                    }}
+                                    }
                         />
-                        <p>Hoje</p>
                     </Circular>
                 
                 </Link>
@@ -46,8 +47,8 @@ export default function Footer(){
 }
 
 const Circular = styled.div`
-    width: 91px;
-    height: 91px;
+    width: 81px;
+    padding: 5px;
     box-sizing: border-box;
     background-color: #52B6FF;
     border-radius: 100%;
@@ -55,18 +56,6 @@ const Circular = styled.div`
     bottom: 10px;
     left: 50%;
     transform: translate(-50%,-10%);
-    p{
-        position: absolute;
-        left: 50%;
-        bottom: 40%;
-        transform: translate(-50%,-0%);
-        font-family: 'Lexend Deca', sans-serif;
-        font-weight: 400;
-        font-size: 17.976px;
-        line-height: 22px;
-        text-align: center;
-        color: #FFFFFF
-    }
 `
 
 const Container = styled.div`
