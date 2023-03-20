@@ -8,8 +8,8 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function Login(){
 
-    const emailLiteral = "sol@gmail.com"
-    const passwordLiteral = "123456"
+    const emailLiteral = ""
+    const passwordLiteral = ""
 
     const [formEmail, setFormEmail] = useState(emailLiteral);
     const [formPassword, setFormPassword] = useState(passwordLiteral);
