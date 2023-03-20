@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { UserProgress } from "../contexts/UserProgress";
 
 export default function Diarias({
   habitsList,
-  setHabitsList,
   refresh,
   setRefresh,
 }) {
@@ -14,10 +13,7 @@ export default function Diarias({
   const { userData } = useContext(UserContext);
 
   useEffect(() => {
-    {
-      calculoProgresso(habitsList);
-      console.log("Calculo progresso...");
-    }
+    calculoProgresso(habitsList);
   });
 
   function calculoProgresso(habitsList) {
@@ -136,7 +132,7 @@ const Sequence = styled.span`
 //Caso a sequência atual seja igual ao recorde do usuário e maior que zero, este também deve ser exibido em verde
 const RecordSequence = styled.span`
     color: ${(props) =>
-      props.atual != 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};
+      props.atual !== 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};
 `;
 
 const Titulo = styled.p`

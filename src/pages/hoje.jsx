@@ -79,7 +79,6 @@ export default function Hoje() {
         <DaillyGap>
           <Diarias
             habitsList={habitsList}
-            setHabitsList={setHabitsList}
             refresh={refresh}
             setRefresh={setRefresh}
           ></Diarias>
