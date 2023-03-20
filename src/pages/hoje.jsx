@@ -15,18 +15,17 @@ export default function Hoje(){
 
     const {userData} = useContext(UserContext);
     const {userProgress} = useContext(UserProgress);
-    const {setUserProgress} = useContext(UserProgress);
 
     const [habitsList, setHabitsList] = useState([]);
-    const [refresh, setRefresh] = useState(0);
+    const [refresh, setRefresh] = useState(false);
 
     const navigate = useNavigate();
 
     const DIAS_DA_SEMANA = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta"]
-    const HOJE = `${DIAS_DA_SEMANA[dayjs().day()]}, ${dayjs().date()}/${dayjs().month()+1}`
 
     useEffect(()=>{
         fetchHabits()
+        console.log("fetchHabits useEffect from hoje")
     },[refresh])
 
     function fetchHabits(){

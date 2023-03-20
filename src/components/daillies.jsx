@@ -52,7 +52,7 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
             check.then(
                 (resposta) => {
                     console.log(resposta)
-                    setRefresh(refresh++)
+                    setRefresh(!refresh)
                     console.log("Marcar")
                     calculoProgresso(habitsList)
                 }
@@ -77,7 +77,7 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
             uncheck.then(
                 (resposta) => {
                     console.log(resposta)
-                    setRefresh(refresh++)
+                    setRefresh(!refresh)
                     console.log("Desmarcar")
                     calculoProgresso(habitsList)
                 }
@@ -92,14 +92,16 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
     return(
         
         habitsList.map(
-            (habito, index) => {
+            (habito, index) => {    
+
+                console.log(habito)
      
                 return (
                     <Caixa data-test="today-habit-container" key={index}>
                     <Titulo data-test="today-habit-name">{habito.name}</Titulo>
                     
                     <SequenciaAtual data-test="today-habit-sequence">
-                        Sequência atual: <Sequence atual={habito.currentSequence} recorde={habito.highestSequence}>
+                        Sequência atual: <Sequence marcou={habito.done}>
                             {habito.currentSequence} {habito.currentSequence > 1 ? "dias" :  habito.currentSequence !== 0 ? "dia" : ""}
                         </Sequence>
                     </SequenciaAtual>
@@ -122,7 +124,7 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
 }
 
 const Sequence = styled.span`
-    color: ${props => props.atual > 0  ? "#8FC549" : "#666666" };
+    color: ${props => props.marcou === true ? "#8FC549" : "#666666" };
 `
 const RecordSequence = styled.span`
     color: ${props => props.atual > 0 && props.atual >= props.recorde ? "#8FC549" : "#666666" };
