@@ -17,12 +17,14 @@ export default function Hoje(){
     const {userData} = useContext(UserContext);
     const [habitsList, setHabitsList] = useState([]);
     const {userProgress} = useContext(UserProgress);
+    const {setUserProgress} = useContext(UserProgress);
     const navigate = useNavigate();
 
     const DIAS_DA_SEMANA = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta"]
 
     useEffect(()=>{
         fetchHabits()
+        console.log("Hoje fetch")
     },[])
 
     const HOJE = `${DIAS_DA_SEMANA[dayjs().day()]}, ${dayjs().date()}/${dayjs().month()+1}`
@@ -36,6 +38,7 @@ export default function Hoje(){
         habits.then(
             (resposta) => {
                 setHabitsList(resposta.data);
+                calculoProgresso(resposta.data);
             }
         )
         habits.catch(
@@ -46,7 +49,11 @@ export default function Hoje(){
         )
     }
 
-
+    function calculoProgresso(habitsList){
+        const porcento = 100;
+        const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
+        setUserProgress(Math.floor((completos/habitsList.length)*porcento))
+    }
 
 
 
@@ -71,7 +78,11 @@ export default function Hoje(){
             {habitsList.map(
                 (habito, index) => {
                     return (
-                        <Diarias key={index} habito={habito} habitsList={habitsList} setHabitsList={setHabitsList}/>
+                        <Diarias 
+                            key={index}
+                            habito={habito}
+                            habitsList={habitsList}
+                            setHabitsList={setHabitsList}/>
                     )
                 }
             )}

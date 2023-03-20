@@ -8,9 +8,8 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function Login(){
 
-    //remove later
-    const emailLiteral = "sol@gmail.com"
-    const passwordLiteral = "123456"
+    const emailLiteral = ""
+    const passwordLiteral = ""
 
     const [formEmail, setFormEmail] = useState(emailLiteral);
     const [formPassword, setFormPassword] = useState(passwordLiteral);
@@ -45,6 +44,7 @@ export default function Login(){
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performLogin}>
                     <input
+                        data-test="email-input"
                         placeholder=" email"
                         type="email"
                         value={formEmail}
@@ -53,6 +53,7 @@ export default function Login(){
                         disabled={loading}
                     />
                     <input
+                        data-test="password-input"
                         placeholder=" senha"
                         type="password"
                         value={formPassword}
@@ -60,11 +61,14 @@ export default function Login(){
                         required
                         disabled={loading}
                     />
-                    <button type="submit" disabled={loading}>
-                        {loading ? <Loading/> : "Entrar"}
+                    <button 
+                        type="submit" 
+                        disabled={loading}
+                        data-test="login-btn">
+                            {loading ? <Loading/> : "Entrar"}
                     </button>
                 </form>
-            <Link to="/cadastro">
+            <Link to="/cadastro" data-test="signup-link">
                 Não tem uma conta? Cadastre-se!
             </Link>
         </Main> 

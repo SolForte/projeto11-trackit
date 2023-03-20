@@ -27,7 +27,7 @@ export default function WeekdayButtons(props){
     }
 
     return(
-        <Dia statusBotao={statusBotao} onClick={()=>SelecionarDia(index, diasSelecionados, setDiasSelecionados)}>
+        <Dia statusBotao={statusBotao} onClick={()=>SelecionarDia(index, diasSelecionados, setDiasSelecionados)} data-test="habit-day">
             {dia}
         </Dia>
     )

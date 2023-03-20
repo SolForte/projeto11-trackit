@@ -11,13 +11,13 @@ export default function Footer(){
 
     return (
         <Container>
-            <SubContainer>
+            <SubContainer data-test="menu">
 
-                <Link to="/habitos">
+                <Link to="/habitos" data-test="habit-link">
                     <MenuButton>Hábitos</MenuButton>
                 </Link>
                 
-                <Link to="/hoje">
+                <Link to="/hoje" data-test="today-link">
 
                     <Circular>
                         <CircularProgressbar 

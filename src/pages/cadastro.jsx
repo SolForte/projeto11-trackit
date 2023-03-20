@@ -48,6 +48,7 @@ export default function Cadastro(){
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performCadastro}>
                     <input
+                        data-test="email-input"
                         placeholder=" email"
                         type="email"
                         value={cadastroEmail}
@@ -56,6 +57,7 @@ export default function Cadastro(){
                         disabled={loading}
                     />
                     <input
+                        data-test="password-input"
                         placeholder=" senha"
                         type="password"
                         value={cadastroPassword}
@@ -64,6 +66,7 @@ export default function Cadastro(){
                         disabled={loading}
                     />
                     <input
+                        data-test="user-name-input"
                         placeholder=" nome"
                         type="text"
                         value={cadastroNome}
@@ -72,6 +75,7 @@ export default function Cadastro(){
                         disabled={loading}
                     />
                     <input
+                        data-test="user-image-input"
                         placeholder=" foto"
                         type="url"
                         value={cadastroFoto}
@@ -79,11 +83,11 @@ export default function Cadastro(){
                         required
                         disabled={loading}
                     />
-                    <button type="submit" disabled={loading}>
+                    <button data-test="signup-btn" type="submit" disabled={loading}>
                         {loading ? <Loading/> : "Cadastrar"}
                     </button>
                 </form>
-            <Link to="/">
+            <Link to="/" data-test="login-link">
                 Já tem uma conta? Faça login!
             </Link>
         </Main> 

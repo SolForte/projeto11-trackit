@@ -8,7 +8,7 @@ export default function Header(){
 
     return(
         <Container>
-            <SubContainer>
+            <SubContainer data-test="header">
                 <p>TrackIt</p>
                 <img src={userData.image} alt="Sua foto de perfíl"/>
             </SubContainer>

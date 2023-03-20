@@ -14,16 +14,11 @@ export default function Diarias( {habito, habitsList, setHabitsList} ){
         () => {
 
         if (current !== undefined){
-            calculoProgresso();
+            console.log("Build dailly")
         }
         }
-    )
+    ,)
     
-    function calculoProgresso(){
-        const porcento = 100;
-        const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
-        setUserProgress(Math.floor((completos/habitsList.length)*porcento))
-    }
 
     function checagem(){
         if (current.done === false){
@@ -74,27 +69,45 @@ export default function Diarias( {habito, habitsList, setHabitsList} ){
             )
 
     }
+
+    function fetchHabits(){
+
+        const config = {headers: {Authorization: `Bearer ${userData.token}`}};
+
+        const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config);
+
+        habits.then(
+            (resposta) => {
+                setHabitsList(resposta.data);
+                console.log(resposta.data)
+            }
+        )
+    }
  
     if (current !== undefined){
         return (
-            <Caixa>
-                <Titulo>{current.name}</Titulo>
+            <Caixa data-test="today-habit-container">
+                <Titulo data-test="today-habit-name">{current.name}</Titulo>
                 
-                <SequenciaAtual>
-                    Sequência atual: <span>{current.currentSequence} {current.currentSequence > 1 ? "dias" :  current.currentSequence !== 0 ? "dia" : ""}</span>
+                <SequenciaAtual data-test="today-habit-sequence">
+                    Sequência atual: <Sequence atual={current.currentSequence} recorde={current.highestSequence}>{current.currentSequence} {current.currentSequence > 1 ? "dias" :  current.currentSequence !== 0 ? "dia" : ""}</Sequence>
                 </SequenciaAtual>
                 
-                <Recorde>
-                    Seu recorde: <span>{current.highestSequence} {current.highestSequence > 1 ? "dias" : current.highestSequence !== 0 ? "dia" : ""}</span>
+                <Recorde data-test="today-habit-record">
+                    Seu recorde: <Sequence atual={current.currentSequence} recorde={current.highestSequence}>{current.highestSequence} {current.highestSequence > 1 ? "dias" : current.highestSequence !== 0 ? "dia" : ""}</Sequence>
                 </Recorde>
 
-                <CheckmarkButton toggleStatus={current.done} onClick={()=>checagem()}>
+                <CheckmarkButton toggleStatus={current.done} onClick={()=>checagem()} data-test="today-habit-check-btn">
                     <ion-icon name="checkmark"></ion-icon>
                 </CheckmarkButton>
             </Caixa>
         )
     }
 }
+
+const Sequence = styled.span`
+    color: ${props => props.atual > 0 && props.atual === props.recorde ? "#8FC549" : "#666666" };
+`
 
 const Titulo = styled.p`
     font-family: 'Lexend Deca', sans-serif;

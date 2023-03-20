@@ -28,7 +28,7 @@ export default function Habitos(){
     
     useEffect(()=>{
         fetchHabits()
-    })
+    },[])
 
     function fetchHabits(){
         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
@@ -70,7 +70,7 @@ export default function Habitos(){
         create.catch(
             (resposta) => {
                 setLoading(false);
-                setCriacao(false)
+                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
             }
         )
     }
@@ -81,7 +81,7 @@ export default function Habitos(){
             <Header/>
                 <CreationMenu>
                     <p>Meus Hábitos</p>
-                    <button onClick={()=>setCriacao(true)}>
+                    <button onClick={()=>setCriacao(true)} data-test="habit-create-btn">
                         <p>+</p>
                     </button>
                 </CreationMenu>
@@ -89,9 +89,10 @@ export default function Habitos(){
           
                 {(criacao === true)
                 ? 
-                <Criacao>
+                <Criacao data-test="habit-create-container">
 
                     <input 
+                        data-test="habit-name-input" 
                         placeholder="Nome do hábito"
                         value={habitName}
                         onChange={(event) => setHabitName(event.target.value)}
@@ -118,8 +119,9 @@ export default function Habitos(){
                     </WeekdayButtonsContainer>
 
                     <CancelAcceptContainer>
-                            <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
+                            <Cancelar onClick={()=>setCriacao(false)} data-test="habit-create-cancel-btn" >Cancelar</Cancelar>
                             <Salvar
+                                data-test="habit-create-save-btn"
                                 onClick={
                                     () => {
                                     criar()
@@ -167,15 +169,16 @@ export default function Habitos(){
 
 
                         return(
-                            <HabitBox key={index}>
+                            <HabitBox key={index} data-test="habit-container">
                                 
-                                    <HabitName>{element.name}</HabitName>
+                                    <HabitName data-test="habit-name">{element.name}</HabitName>
 
                                     <HabitSemana>
 
                                     {semana.map(
                                             (dia, index) => (
                                                 <HabitDias
+                                                    data-test="habit-day"
                                                     disabled={true}
                                                     statusBotao={element.days.includes(index)}
                                                     key={index}>
@@ -188,7 +191,7 @@ export default function Habitos(){
 
 
                                 
-                                <Lixo onClick={()=>{deletar(element)}}>
+                                <Lixo onClick={()=>{deletar(element)}} data-test="habit-delete-btn">
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </Lixo>
                             </HabitBox>
