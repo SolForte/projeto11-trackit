@@ -53,11 +53,11 @@ export default function Hoje(){
         <Container>
             <TopMenu>
                 <p data-test="today">
-                    {HOJE}
+                    {DIAS_DA_SEMANA[dayjs().day()]}, {dayjs().format("DD/MM")}
                 </p>
             </TopMenu>
 
-            <PorcentagemConcluida cor={userProgress !== 0 && !isNaN(userProgress)}>
+            <PorcentagemConcluida data-test="today-counter" cor={userProgress !== 0 && !isNaN(userProgress)}>
                 {userProgress !== 0 && userProgress !== undefined && userProgress !== null && !isNaN(userProgress)
                 ? `${userProgress}% dos hábitos concluídos` 
                 : `Nenhum hábito concluído ainda`
