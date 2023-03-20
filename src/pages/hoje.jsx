@@ -53,10 +53,13 @@ export default function Hoje() {
   }
 
   function data() {
-    const dia = DIAS_DA_SEMANA[dayjs().day()];
-    const data = dayjs().date();
-    const mes = dayjs().month()+1;
-    return `${dia}, ${data}/${mes}`;
+    const hoje = new Date();
+    const dia = DIAS_DA_SEMANA[hoje.getDay()];
+    const data = hoje.getDate();
+    const mes = hoje.getMonth() + 1;
+    return `${dia}, ${data < 10 ? "0" + data : data}/${
+      mes < 10 ? "0" + mes : mes
+    }`;
   }
 
   return (
