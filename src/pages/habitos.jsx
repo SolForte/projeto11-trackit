@@ -141,6 +141,24 @@ export default function Habitos(){
                 {habitsList.map(
                     (element, index) => {
                         
+                        function deletar(element){
+                            if (window.confirm( "Gostaria de realmente apagar o hábito?") === true){
+                                
+                                const config = {headers: {Authorization: `Bearer ${userData.token}`}};
+
+                                const apagar = axios.delete(
+                                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${element.id}`,config)
+                                apagar.then(
+                                    () => fetchHabits()
+                                )
+                                apagar.catch(
+                                    (resposta) => {
+                                        alert(resposta.response.data.message)
+                                    }
+                                );
+                            } 
+                        }
+
 
                         return(
                             <HabitBox key={index}>
@@ -163,7 +181,7 @@ export default function Habitos(){
 
 
                                 
-                                <Lixo>
+                                <Lixo onClick={()=>{deletar(element)}}>
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </Lixo>
                             </HabitBox>
