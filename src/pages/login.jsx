@@ -88,6 +88,8 @@ const Main = styled.div`
     align-items: center;
     img{
         width: 180px;
+        margin-top: 68px;
+        margin-bottom: 40px;
     }
     a{
         margin-top: 25px;
