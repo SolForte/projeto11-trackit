@@ -16,6 +16,8 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
         {id: 57257, name: '3rd', done: false, currentSequence: 0, highestSequence: 0}
     ]
 
+    const exemploRecorde = (2) 
+
     useEffect(
         ()=>{
             {
@@ -93,7 +95,7 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
         
         habitsList.map(
             (habito, index) => {
-                
+
                 return (
                     <Caixa data-test="today-habit-container" key={index}>
                     <Titulo data-test="today-habit-name">{habito.name}</Titulo>

@@ -50,18 +50,18 @@ export default function Hoje(){
         const dia = DIAS_DA_SEMANA[dayjs().day()]
         const data = dayjs().date()
         const mes = dayjs().month()
-        return(`${dia}, ${data}/${mes}`)
+        return(`${dia}, ${data}/${mes+1}`)
     }
 
     return(
     <Main>
         <Header/>
         <Container>
-            <TopMenu>
-                <p data-test="today">
+
+                <DataHoje data-test="today">
                     {data()}
-                </p>
-            </TopMenu>
+                </DataHoje>
+            
 
             <PorcentagemConcluida data-test="today-counter" cor={userProgress !== 0 && !isNaN(userProgress)}>
                 {userProgress !== 0 && userProgress !== undefined && userProgress !== null && !isNaN(userProgress)
@@ -112,11 +112,11 @@ const Main = styled.div`
     align-items: center;
 `
 const TopMenu = styled.div`
-    p{
+`
+const DataHoje = styled.p`
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
         font-size: 22.976px;
         line-height: 29px;
         color: #126BA5;
-    }    
 `
