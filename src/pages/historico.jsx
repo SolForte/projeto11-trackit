@@ -2,24 +2,22 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import styled from "styled-components";
 
-export default function Historico(){
-    return(
+export default function Historico() {
+  return (
     <Main>
-        <Header/>
-        <Content>
-                <CreationMenu>
-                    <p>Histórico</p>
-                </CreationMenu>
-                <Tip>
-                    <p>
-                        Em breve você poderá ver o histórico dos seus hábitos aqui!
-                    </p>
-                </Tip> 
-        </Content>
-        <Footer/>
-    </Main>)
+      <Header />
+      <Content>
+        <CreationMenu>
+          <p>Histórico</p>
+        </CreationMenu>
+        <Tip>
+          <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+        </Tip>
+      </Content>
+      <Footer />
+    </Main>
+  );
 }
-
 
 const Main = styled.div`
     display: flex;
@@ -28,14 +26,14 @@ const Main = styled.div`
     background-color: #E5E5E5;
     width: 100vw;
     height: 100vh;
-`
+`;
 
 const Content = styled.div`
     margin-top: 92px;
     display: flex;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 const CreationMenu = styled.div`
     width: 375px;
@@ -70,7 +68,7 @@ const CreationMenu = styled.div`
             padding-bottom: 4px;
         }
     }
-`
+`;
 
 const Tip = styled.div`
     width: 375px;
@@ -83,4 +81,4 @@ const Tip = styled.div`
         line-height: 22px;
         color: #666666
     }
-`
+`;

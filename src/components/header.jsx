@@ -2,18 +2,17 @@ import styled from "styled-components";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 
-export default function Header(){
+export default function Header() {
+  const { userData } = useContext(UserContext);
 
-    const {userData} = useContext(UserContext);
-
-    return(
-        <Container>
-            <SubContainer data-test="header">
-                <p>TrackIt</p>
-                <img src={userData.image} alt="Sua foto de perfíl"/>
-            </SubContainer>
-        </Container>
-    )
+  return (
+    <Container>
+      <SubContainer data-test="header">
+        <p>TrackIt</p>
+        <img src={userData.image} alt="Sua foto de perfíl" />
+      </SubContainer>
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -27,7 +26,7 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     z-index: 1;
-`
+`;
 
 const SubContainer = styled.div`
     box-sizing:  border-box;
@@ -48,4 +47,4 @@ const SubContainer = styled.div`
         line-height: 49px;
         color: #FFFFFF;
     }
-`
+`;

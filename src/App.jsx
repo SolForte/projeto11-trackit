@@ -9,23 +9,21 @@ import { UserContext } from "./contexts/UserContext";
 import { UserProgress } from "./contexts/UserProgress";
 
 function App() {
-
-  const [userData, setUserData ] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [userProgress, setUserProgress] = useState(0);
-
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{userData, setUserData}}>
-      <UserProgress.Provider value={{userProgress, setUserProgress}}>
-      <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/cadastro" element={<Cadastro/>}/>
-        <Route path="/habitos" element={<Habitos/>}/>
-        <Route path="/hoje" element={<Hoje/>}/>
-        <Route path="/historico" element={<Historico/>}/>
-      </Routes>
-      </UserProgress.Provider>
+      <UserContext.Provider value={{ userData, setUserData }}>
+        <UserProgress.Provider value={{ userProgress, setUserProgress }}>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/habitos" element={<Habitos />} />
+            <Route path="/hoje" element={<Hoje />} />
+            <Route path="/historico" element={<Historico />} />
+          </Routes>
+        </UserProgress.Provider>
       </UserContext.Provider>
     </BrowserRouter>
   );

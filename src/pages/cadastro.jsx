@@ -5,94 +5,94 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../constants/loading";
 
-export default function Cadastro(){
+export default function Cadastro() {
+  const stringLiteral = "";
 
-    const stringLiteral = ""
+  const [cadastroEmail, setCadastroEmail] = useState(stringLiteral);
+  const [cadastroPassword, setCadastroPassword] = useState(stringLiteral);
+  const [cadastroNome, setCadastroNome] = useState(stringLiteral);
+  const [cadastroFoto, setCadastroFoto] = useState(stringLiteral);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const [cadastroEmail, setCadastroEmail] = useState(stringLiteral);
-    const [cadastroPassword, setCadastroPassword] = useState(stringLiteral);
-    const [cadastroNome, setCadastroNome] = useState(stringLiteral);
-    const [cadastroFoto, setCadastroFoto] = useState(stringLiteral);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  function performCadastro(event) {
+    event.preventDefault();
 
-    function performCadastro (event){
-        event.preventDefault();
+    const corpo = {
+      email: cadastroEmail,
+      name: cadastroNome,
+      image: cadastroFoto,
+      password: cadastroPassword,
+    };
 
-        const corpo = {
-            email: cadastroEmail,
-            name: cadastroNome,
-            image: cadastroFoto,
-            password: cadastroPassword
-        };
+    setLoading(true);
 
-        setLoading(true);
+    const cadastro = axios.post(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`,
+      corpo
+    );
+    cadastro.then(() => {
+      navigate("/");
+    });
+    cadastro.catch((resposta) => {
+      setLoading(false);
+      alert(
+        `Erro ${resposta.response.status} - ${resposta.response.data.message}`
+      );
+    });
+  }
 
-        const cadastro = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`, corpo);
-        cadastro.then(
-            () => {
-                navigate("/");
-            }
-        )
-        cadastro.catch(
-            (resposta) => {
-                setLoading(false);
-                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
-            }
-        )
-    }
-
-    return(
-        <Encloser>
-        <Main>
-            <img src={logo} alt="TrackIt Logo"/>
-                <form onSubmit={performCadastro}>
-                    <input
-                        data-test="email-input"
-                        placeholder=" email"
-                        type="email"
-                        value={cadastroEmail}
-                        onChange={(event) => setCadastroEmail(event.target.value)}
-                        required
-                        disabled={loading}
-                    />
-                    <input
-                        data-test="password-input"
-                        placeholder=" senha"
-                        type="password"
-                        value={cadastroPassword}
-                        onChange={(event) => setCadastroPassword(event.target.value)}
-                        required
-                        disabled={loading}
-                    />
-                    <input
-                        data-test="user-name-input"
-                        placeholder=" nome"
-                        type="text"
-                        value={cadastroNome}
-                        onChange={(event) => setCadastroNome(event.target.value)}
-                        required
-                        disabled={loading}
-                    />
-                    <input
-                        data-test="user-image-input"
-                        placeholder=" foto"
-                        type="url"
-                        value={cadastroFoto}
-                        onChange={(event) => setCadastroFoto(event.target.value)}
-                        required
-                        disabled={loading}
-                    />
-                    <button data-test="signup-btn" type="submit" disabled={loading}>
-                        {loading ? <Loading/> : "Cadastrar"}
-                    </button>
-                </form>
-            <Link to="/" data-test="login-link">
-                Já tem uma conta? Faça login!
-            </Link>
-        </Main> 
-        </Encloser>
-    )
+  return (
+    <Encloser>
+      <Main>
+        <img src={logo} alt="TrackIt Logo" />
+        <form onSubmit={performCadastro}>
+          <input
+            data-test="email-input"
+            placeholder=" email"
+            type="email"
+            value={cadastroEmail}
+            onChange={(event) => setCadastroEmail(event.target.value)}
+            required
+            disabled={loading}
+          />
+          <input
+            data-test="password-input"
+            placeholder=" senha"
+            type="password"
+            value={cadastroPassword}
+            onChange={(event) => setCadastroPassword(event.target.value)}
+            required
+            disabled={loading}
+          />
+          <input
+            data-test="user-name-input"
+            placeholder=" nome"
+            type="text"
+            value={cadastroNome}
+            onChange={(event) => setCadastroNome(event.target.value)}
+            required
+            disabled={loading}
+          />
+          <input
+            data-test="user-image-input"
+            placeholder=" foto"
+            type="url"
+            value={cadastroFoto}
+            onChange={(event) => setCadastroFoto(event.target.value)}
+            required
+            disabled={loading}
+          />
+          <button data-test="signup-btn" type="submit" disabled={loading}>
+            {loading ? <Loading /> : "Cadastrar"}
+          </button>
+        </form>
+        <Link to="/" data-test="login-link">
+          Já tem uma conta? Faça login!
+        </Link>
+      </Main>
+    </Encloser>
+  );
 }
 
 const Encloser = styled.div`
@@ -101,7 +101,7 @@ const Encloser = styled.div`
     height: 100vh;
     display: flex;
     justify-content: center;
-`
+`;
 
 const Main = styled.div`
     width: 375px;
@@ -128,4 +128,4 @@ const Main = styled.div`
         align-items: center;
         width: 100%;
     }
-`
+`;
