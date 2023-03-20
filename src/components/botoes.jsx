@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function WeekdayButtons(props){
-    const {dia, index, status, diasSelecionados, setDiasSelecionados} = props;
+    const {dia, index, status, diasSelecionados, setDiasSelecionados, loading} = props;
     const [statusBotao, setStatusBotao] = useState(status);
 
     useEffect(
@@ -27,7 +27,7 @@ export default function WeekdayButtons(props){
     }
 
     return(
-        <Dia statusBotao={statusBotao} onClick={()=>SelecionarDia(index, diasSelecionados, setDiasSelecionados)} data-test="habit-day">
+        <Dia disabled={loading} statusBotao={statusBotao} onClick={()=>SelecionarDia(index, diasSelecionados, setDiasSelecionados)} data-test="habit-day">
             {dia}
         </Dia>
     )

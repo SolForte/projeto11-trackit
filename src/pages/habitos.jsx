@@ -91,7 +91,8 @@ export default function Habitos(){
                 ? 
                 <Criacao data-test="habit-create-container">
 
-                    <input 
+                    <input
+                        disabled={loading}
                         data-test="habit-name-input" 
                         placeholder="Nome do hábito"
                         value={habitName}
@@ -111,6 +112,7 @@ export default function Habitos(){
                                     status={value.status}
                                     diasSelecionados={diasSelecionados}
                                     setDiasSelecionados={setDiasSelecionados}
+                                    loading={loading}
                                 />
                                 )
                             }
@@ -119,15 +121,15 @@ export default function Habitos(){
                     </WeekdayButtonsContainer>
 
                     <CancelAcceptContainer>
-                            <Cancelar onClick={()=>setCriacao(false)} data-test="habit-create-cancel-btn" >Cancelar</Cancelar>
+                            <Cancelar disabled={loading} onClick={()=>setCriacao(false)} data-test="habit-create-cancel-btn" >Cancelar</Cancelar>
                             <Salvar
+                                disabled={loading}
                                 data-test="habit-create-save-btn"
                                 onClick={
                                     () => {
                                     criar()
                                     }
-                                }
-                                disabled={loading}    
+                                }   
                             >
                                     {loading ? <Loading/> : "Salvar"}
                             </Salvar>
