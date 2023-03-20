@@ -128,9 +128,12 @@ export default function Diarias({
   });
 }
 
+//Ao marcar um hábito como concluído, deve ser colocada em verde a contagem da sequência atual
 const Sequence = styled.span`
     color: ${(props) => (props.marcou === true ? "#8FC549" : "#666666")};
 `;
+
+//Caso a sequência atual seja igual ao recorde do usuário e maior que zero, este também deve ser exibido em verde
 const RecordSequence = styled.span`
     color: ${(props) =>
       props.atual != 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};

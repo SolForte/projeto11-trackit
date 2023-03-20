@@ -55,8 +55,8 @@ export default function Hoje() {
   function data() {
     const dia = DIAS_DA_SEMANA[dayjs().day()];
     const data = dayjs().date();
-    const mes = dayjs().month();
-    return `${dia}, ${data}/${mes + 1}`;
+    const mes = dayjs().month()+1;
+    return `${dia}, ${data}/${mes}`;
   }
 
   return (
