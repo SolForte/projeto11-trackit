@@ -18,9 +18,9 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
 
     useEffect(
         ()=>{
-            if (habitsList !== undefined && habitsList !== null){
+            {
             calculoProgresso(habitsList)
-            console.log("useEffect")
+            console.log("Calculo progresso...")
             }
         }
     )
@@ -31,85 +31,30 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
         setUserProgress(Math.floor((completos/habitsList.length)*porcento));
     }
 
-    return(
-        
-        habitsList.map(
-            (habito, index) => {
-
-                console.log(habito)
-
-                return (
-                    <Caixa data-test="today-habit-container">
-                    <Titulo data-test="today-habit-name">{habito.name}</Titulo>
-                    
-                    <SequenciaAtual data-test="today-habit-sequence">
-                        Sequência atual: <Sequence atual={habito.currentSequence} recorde={habito.highestSequence}>
-                            {habito.currentSequence} {habito.currentSequence > 1 ? "dias" :  habito.currentSequence !== 0 ? "dia" : ""}
-                        </Sequence>
-                    </SequenciaAtual>
-                    
-                    <Recorde data-test="today-habit-record">
-                        Seu recorde: <Sequence atual={habito.currentSequence} recorde={habito.highestSequence}>
-                            {habito.highestSequence} {habito.highestSequence > 1 ? "dias" : habito.highestSequence !== 0 ? "dia" : ""}
-                        </Sequence>
-                    </Recorde>
-    
-                    <CheckmarkButton marcado={habito.done} data-test="today-habit-check-btn">
-                        <ion-icon name="checkmark"></ion-icon>
-                    </CheckmarkButton>
-                    </Caixa>
-                )
-            }
-        )
-
-    )
-}
-/* 
-export function Teste( {habito, habitsList, setHabitsList, refresh, setRefresh} ){
-
-    const [current, setCurrent] = useState(habito)
-
-    useEffect(
-        () => {
-            console.log(current)
-            setAtual(current.currentSequence)
-            setRecorde(current.highestSequence)
-            setMarcado(current.done)
-            calculoProgresso(habitsList)
+    function checagem(habito){
+        if (habito.done === false){
+            marcar(habito);
         }
-    )
-
-    function calculoProgresso(habitsList){
-        const porcento = 100;
-        const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
-        setUserProgress(Math.floor((completos/habitsList.length)*porcento));
-        console.log("calculo progresso")
-    }
-    
-
-    function checagem(){
-        if (current.done === false){
-            console.log("Marcar")
-            marcar();
-        }
-        else if (current.done === true){
-            console.log("Desmarcar")
-            desmarcar();
+        else if (habito.done === true){
+            desmarcar(habito);
         }
     }
 
-    function marcar(){
+    function marcar(habito){
             const body = {};
             const config = {
                 headers: {Authorization: `Bearer ${userData.token}`}
             }
 
-            const check = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${current.id}/check`, body, config);
+            console.log("Marcado!")
+
+            const check = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`, body, config);
             check.then(
                 (resposta) => {
                     console.log(resposta)
-                    setMarcado(!marcado)
                     setRefresh(refresh++)
+                    console.log("Marcar")
+                    calculoProgresso(habitsList)
                 }
             )
             check.catch(
@@ -119,18 +64,22 @@ export function Teste( {habito, habitsList, setHabitsList, refresh, setRefresh} 
             )
     }
 
-    function desmarcar(){
+
+    function desmarcar(habito){
             const body = {};
             const config = {
                 headers: {Authorization: `Bearer ${userData.token}`}
             }
-            
-            const uncheck = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${current.id}/uncheck`, body, config)
+
+            console.log("Desmarcado!")
+        
+            const uncheck = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`, body, config)
             uncheck.then(
                 (resposta) => {
                     console.log(resposta)
-                    setMarcado(!marcado)
                     setRefresh(refresh++)
+                    console.log("Desmarcar")
+                    calculoProgresso(habitsList)
                 }
             )
             uncheck.catch(
@@ -138,33 +87,45 @@ export function Teste( {habito, habitsList, setHabitsList, refresh, setRefresh} 
                     console.log(resposta)
                 }
             )
-
     }
- 
-    if (current !== undefined){
-        return (
-            <Caixa data-test="today-habit-container">
-                <Titulo data-test="today-habit-name">{current.name}</Titulo>
-                
-                <SequenciaAtual data-test="today-habit-sequence">
-                    Sequência atual: <Sequence atual={current.currentSequence} recorde={current.highestSequence}>{current.currentSequence} {current.currentSequence > 1 ? "dias" :  current.currentSequence !== 0 ? "dia" : ""}</Sequence>
-                </SequenciaAtual>
-                
-                <Recorde data-test="today-habit-record">
-                    Seu recorde: <Sequence atual={current.currentSequence} recorde={current.highestSequence}>{current.highestSequence} {current.highestSequence > 1 ? "dias" : current.highestSequence !== 0 ? "dia" : ""}</Sequence>
-                </Recorde>
 
-                <CheckmarkButton marcado={habito.done} onClick={()=>checagem()} data-test="today-habit-check-btn">
-                    <ion-icon name="checkmark"></ion-icon>
-                </CheckmarkButton>
-            </Caixa>
+    return(
+        
+        habitsList.map(
+            (habito, index) => {
+     
+                return (
+                    <Caixa data-test="today-habit-container" key={index}>
+                    <Titulo data-test="today-habit-name">{habito.name}</Titulo>
+                    
+                    <SequenciaAtual data-test="today-habit-sequence">
+                        Sequência atual: <Sequence atual={habito.currentSequence} recorde={habito.highestSequence}>
+                            {habito.currentSequence} {habito.currentSequence > 1 ? "dias" :  habito.currentSequence !== 0 ? "dia" : ""}
+                        </Sequence>
+                    </SequenciaAtual>
+                    
+                    <Recorde data-test="today-habit-record">
+                        Seu recorde: <RecordSequence atual={habito.currentSequence} recorde={habito.highestSequence}>
+                            {habito.highestSequence} {habito.highestSequence > 1 ? "dias" : habito.highestSequence !== 0 ? "dia" : ""}
+                        </RecordSequence>
+                    </Recorde>
+    
+                    <CheckmarkButton marcado={habito.done} data-test="today-habit-check-btn" onClick={()=>checagem(habito)}>
+                        <ion-icon name="checkmark"></ion-icon>
+                    </CheckmarkButton>
+                    </Caixa>
+                )
+            }
         )
-    }
+
+    )
 }
-*/
 
 const Sequence = styled.span`
-    color: ${props => props.atual > 0 && props.atual === props.recorde ? "#8FC549" : "#666666" };
+    color: ${props => props.atual > 0  ? "#8FC549" : "#666666" };
+`
+const RecordSequence = styled.span`
+    color: ${props => props.atual > 0 && props.atual >= props.recorde ? "#8FC549" : "#666666" };
 `
 
 const Titulo = styled.p`
