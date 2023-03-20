@@ -46,13 +46,20 @@ export default function Hoje(){
         )
     }
 
+    function data(){
+        const dia = DIAS_DA_SEMANA[dayjs().day()]
+        const data = dayjs().date()
+        const mes = dayjs().month()
+        return(`${dia}, ${data}/${mes}`)
+    }
+
     return(
     <Main>
         <Header/>
         <Container>
             <TopMenu>
                 <p data-test="today">
-                    {DIAS_DA_SEMANA[dayjs().day()]}, {dayjs().format("DD/MM")}
+                    {data()}
                 </p>
             </TopMenu>
 

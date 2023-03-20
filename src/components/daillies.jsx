@@ -92,10 +92,8 @@ export default function Diarias({habitsList, setHabitsList, refresh, setRefresh}
     return(
         
         habitsList.map(
-            (habito, index) => {    
-
-                console.log(habito)
-     
+            (habito, index) => {
+                
                 return (
                     <Caixa data-test="today-habit-container" key={index}>
                     <Titulo data-test="today-habit-name">{habito.name}</Titulo>

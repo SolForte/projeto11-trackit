@@ -11,7 +11,6 @@ export default function Login(){
     const emailLiteral = ""
     const passwordLiteral = ""
 
-
     const [formEmail, setFormEmail] = useState(emailLiteral);
     const [formPassword, setFormPassword] = useState(passwordLiteral);
     const [loading, setLoading] = useState(false);
