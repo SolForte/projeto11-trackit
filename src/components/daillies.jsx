@@ -8,25 +8,30 @@ export default function Diarias( {habitsList, setHabitsList} ){
 
     const [current, setCurrent] = useState("")
     const [toggleStatus,setToggleStatus] = useState(false);
-    const {userProgress} = useContext(UserProgress);
+    const {setUserProgress} = useContext(UserProgress);
     const {userData} = useContext(UserContext);
 
     console.log(habitsList)
 
+    useEffect(
+        () => {
+            const porcento = 100;
+            const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
+            setUserProgress(Math.floor((completos/habitsList.length)*porcento))
+        }
+    )
+
     return (
+        
         habitsList.map(
             (habito, index) => {
 
                 function tratamentoDeDados(event){
-
-                    event.preventDefault();
                     setToggleStatus(true);
                     setCurrent([...current, habito.id]);
-
                     if (habito.done !== true){
                         const body = {}
                         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
-                
                         const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`, body, config);
                         marcar.then(
                             (resposta) => {
@@ -40,13 +45,9 @@ export default function Diarias( {habitsList, setHabitsList} ){
                                 setToggleStatus(false);
                             }
                         )
-                    
-
- 
                     } else {
                         const body = {}
                         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
-                
                         const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`, body, config);
                         marcar.then(
                             (resposta) => {

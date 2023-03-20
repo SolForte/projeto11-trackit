@@ -11,7 +11,7 @@ import { UserProgress } from "./contexts/UserProgress";
 function App() {
 
   const [userData, setUserData ] = useState([]);
-  const [userProgress, setUserProgress] = useState(75);
+  const [userProgress, setUserProgress] = useState(0);
 
 
   return (
