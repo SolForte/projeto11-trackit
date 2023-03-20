@@ -11,7 +11,7 @@ export default function Diarias( {habitsList, setHabitsList} ){
     const {setUserProgress} = useContext(UserProgress);
     const {userData} = useContext(UserContext);
 
-    console.log(habitsList)
+    console.log(habitsList);
 
     useEffect(
         () => {
@@ -21,7 +21,29 @@ export default function Diarias( {habitsList, setHabitsList} ){
         }
     )
 
+    function fetchHabits(){
+
+        const config = {headers: {Authorization: `Bearer ${userData.token}`}};
+
+        const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config);
+
+        habits.then(
+            (resposta) => {
+                setHabitsList(resposta.data);
+            }
+        )
+        habits.catch(
+            (resposta) => {
+                //alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
+            }
+        )
+    }
+
     return (
+        
+        habitsList !== null && habitsList !== undefined
+        
+        ? 
         
         habitsList.map(
             (habito, index) => {
@@ -36,12 +58,14 @@ export default function Diarias( {habitsList, setHabitsList} ){
                         marcar.then(
                             (resposta) => {
                                 console.log(resposta)
+                                fetchHabits()
                                 setToggleStatus(false);
                                 setCurrent([]);
                             }
                         )
                         marcar.catch(
                             (resposta) => {
+                                fetchHabits()
                                 setToggleStatus(false);
                             }
                         )
@@ -70,20 +94,28 @@ export default function Diarias( {habitsList, setHabitsList} ){
                             <p>Sequência atual: <span>{habito.currentSequence} {habito.currentSequence > 1 ? "dias" :  habito.currentSequence !== 0 ? "dia" : ""}</span></p>
                             <p>Seu recorde: <span>{habito.highestSequence} {habito.highestSequence > 1 ? "dias" : habito.highestSequence !== 0 ? "dia" : ""}</span></p>
                         </div>
-                        <button onClick={tratamentoDeDados}>
-                            {toggleStatus !== false && current.includes(habito.id)
-                            ?
-                            <></>
-                            :
-                            <ion-icon name="checkmark"></ion-icon>
-                            }
-                        </button>
+                        <CheckmarkButton 
+                            onClick={tratamentoDeDados}
+                            toggleStatus={toggleStatus}
+                            disabled={toggleStatus !== false && current.includes(habito.id)}>
+                                <ion-icon name="checkmark"></ion-icon>
+                        </CheckmarkButton>
                     </div>
                 )
             }
         )
+        
+        : "No"
+        
     )
 }
+
+const CheckmarkButton = styled.button`
+    width: 69px;
+    height: 69px;
+    background: ${props => props.toggleStatus ? "#8FC549": "#EBEBEB"};
+    border-radius: 5px;
+`
 
 /* 
 
