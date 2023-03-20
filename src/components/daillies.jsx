@@ -22,10 +22,10 @@ export default function Diarias({ habitsList, refresh, setRefresh }) {
 
   function checagem(habito) {
     if (habito.done === false) {
-      const check = "check"
+      const check = "check";
       marcar(habito, check);
     } else if (habito.done === true) {
-      const uncheck = "uncheck"
+      const uncheck = "uncheck";
       marcar(habito, uncheck);
     }
   }
