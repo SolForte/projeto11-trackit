@@ -60,7 +60,7 @@ export default function Hoje(){
                 </p>
             </TopMenu>
 
-            <PorcentagemConcluida>
+            <PorcentagemConcluida cor={userProgress !== 0}>
                 {userProgress !== 0
                 ? `${userProgress}% dos hábitos concluídos` 
                 : `Nenhum hábito concluído ainda`
@@ -98,7 +98,7 @@ const PorcentagemConcluida = styled.p`
     font-weight: 400;
     font-size: 17.976px;
     line-height: 22px;
-    color: #BABABA;
+    color: ${props => props.cor ? "#8FC549": "#BABABA"};
 `
 
 const Main = styled.div`

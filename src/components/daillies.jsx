@@ -7,7 +7,6 @@ import { UserProgress } from "../contexts/UserProgress";
 export default function Diarias( {habito, habitsList, setHabitsList} ){
 
     const [current, setCurrent] = useState(habito)
-    const [toggleStatus,setToggleStatus] = useState(false);
     const {setUserProgress} = useContext(UserProgress);
     const {userData} = useContext(UserContext);
 
@@ -15,124 +14,66 @@ export default function Diarias( {habito, habitsList, setHabitsList} ){
         () => {
 
         if (current !== undefined){
-            setToggleStatus(current.done)
-            checagem();
+            calculoProgresso();
         }
         }
     )
     
-    function checagem(){
+    function calculoProgresso(){
         const porcento = 100;
         const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
         setUserProgress(Math.floor((completos/habitsList.length)*porcento))
     }
 
-
-    function fetchHabits(){
-
-        const config = {headers: {Authorization: `Bearer ${userData.token}`}};
-
-        const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config);
-
-        habits.then(
-            (resposta) => {
-                setHabitsList(resposta.data);
-            }
-        )
-        habits.catch(
-            (resposta) => {
-                //alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
-            }
-        )
+    function checagem(){
+        if (current.done === false){
+            console.log("Marcar")
+            marcar();
+        }
+        else if (current.done === true){
+            console.log("Desmarcar")
+            desmarcar();
+        }
     }
 
-/*     function checkHabito(){
-
-        setHabAtual([...habAtual,hab.id]);
-        setActiveDisabled(true);
-
-        if (hab.done === false){
-
-            const token = loginOk.token;
+    function marcar(){
             const body = {};
             const config = {
-                headers: {Authorization: `Bearer ${token}`}
+                headers: {Authorization: `Bearer ${userData.token}`}
             }
 
-            axios
-                .post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit//habits/${hab.id}/check`, body, config)
-                .then (res => {
-                    console.log(res.data);
-                    setActiveDisabled(false);
-                    setHabAtual([]);
-                    setRodar(rodar + 1);
-                })
-                .catch(err => {
-                    alert(err.response.data.message)
-                    setActiveDisabled(false);
-                })
-
-        } else if (hab.done === true) {
-
-            const token = loginOk.token;
-            const body = {};
-            const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-
-            axios
-                .post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit//habits/${hab.id}/uncheck`, body, config)
-                .then (res => {
-                    console.log(res.data);
-                    setTimeout(setActiveDisabled(false), 5000);
-                    setHabAtual([]);
-                    setRodar(rodar + 1);
-                })
-                .catch(err => {
-                    alert(err.response.data.message);
-                    setActiveDisabled(false);
-                })
-        }
-    } */
-
-/*     function tratamentoDeDados(event){
-        setToggleStatus(true);
-        setCurrent([...current, habito.id]);
-        if (habito.done !== true){
-            const body = {}
-            const config = {headers: {Authorization: `Bearer ${userData.token}`}};
-            const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`, body, config);
-            marcar.then(
+            const check = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${current.id}/check`, body, config);
+            check.then(
                 (resposta) => {
                     console.log(resposta)
-                    fetchHabits()
-                    setToggleStatus(false);
-                    setCurrent([]);
                 }
             )
-            marcar.catch(
+            check.catch(
                 (resposta) => {
-                    fetchHabits()
-                    setToggleStatus(false);
+                    console.log(resposta)
                 }
             )
-        } else {
-            const body = {}
-            const config = {headers: {Authorization: `Bearer ${userData.token}`}};
-            const marcar = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`, body, config);
-            marcar.then(
+    }
+
+    function desmarcar(){
+            const body = {};
+            const config = {
+                headers: {Authorization: `Bearer ${userData.token}`}
+            }
+            
+            const uncheck = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${current.id}/uncheck`, body, config)
+            uncheck.then(
                 (resposta) => {
-                    setHabitsList(resposta.data);
-                    setToggleStatus(false);
-                    setCurrent([]);
-                })
-            marcar.catch(
-                (resposta) => {
-                    setToggleStatus(false);
+                    console.log(resposta)
                 }
-                )
-        }
-    } */
+            )
+            uncheck.catch(
+                (resposta) => {
+                    console.log(resposta)
+                }
+            )
+
+    }
  
     if (current !== undefined){
         return (
@@ -147,7 +88,7 @@ export default function Diarias( {habito, habitsList, setHabitsList} ){
                     Seu recorde: <span>{current.highestSequence} {current.highestSequence > 1 ? "dias" : current.highestSequence !== 0 ? "dia" : ""}</span>
                 </Recorde>
 
-                <CheckmarkButton toggleStatus={toggleStatus}>
+                <CheckmarkButton toggleStatus={current.done} onClick={()=>checagem()}>
                     <ion-icon name="checkmark"></ion-icon>
                 </CheckmarkButton>
             </Caixa>
