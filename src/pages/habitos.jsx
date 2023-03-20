@@ -295,7 +295,7 @@ const Salvar = styled.button`
     
 
 const WeekdayButtonsContainer = styled.div`
-    padding-left: 14px;
+    padding-left: 19px;
     gap: 4px;
     display: flex;
 `

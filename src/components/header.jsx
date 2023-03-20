@@ -17,7 +17,7 @@ export default function Header(){
 }
 
 const Container = styled.div`
-    opacity: 0.7;
+    opacity: 1;
     width: 100vw;
     height: 70px;
     background-color: #126BA5;

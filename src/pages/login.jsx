@@ -28,7 +28,7 @@ export default function Login(){
             (resposta) => {
                 setUserData(resposta.data);
                 setLoading(false);
-                navigate("/habitos")
+                navigate("/hoje")
             }
         )
         login.catch(

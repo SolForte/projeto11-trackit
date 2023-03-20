@@ -54,34 +54,66 @@ export default function Hoje(){
     <Main>
         <Header/>
         <Container>
-            <p data-test="today">
-                {HOJE}
-            </p>
+            <TopMenu>
+                <p data-test="today">
+                    {HOJE}
+                </p>
+            </TopMenu>
 
-            <p>
+            <PorcentagemConcluida>
                 {userProgress !== 0
                 ? `${userProgress}% dos hábitos concluídos` 
                 : `Nenhum hábito concluído ainda`
                 }
-            </p>
-
-            <Diarias habitsList={habitsList} setHabitsList={setHabitsList}/>
-
+            </PorcentagemConcluida>
+            
+            <DaillyGap>
+            {habitsList.map(
+                (habito, index) => {
+                    return (
+                        <Diarias key={index} habito={habito} habitsList={habitsList} setHabitsList={setHabitsList}/>
+                    )
+                }
+            )}
+            </DaillyGap>
         </Container>
         <Footer/>
     </Main>)
 }
 
+const DaillyGap = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+`
+
 const Container = styled.div`
+    padding-top: 92px;
+    width: 340px;
+`
+
+const PorcentagemConcluida = styled.p`
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #BABABA;
 `
 
 const Main = styled.div`
+    width: 100vw;
+    margin-bottom: 178px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #E5E5E5;
-    width: 100vw;
-    height: 100vh;
-    margin-top: 70px;
-    padding-top: 22px;
+`
+const TopMenu = styled.div`
+    p{
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 22.976px;
+        line-height: 29px;
+        color: #126BA5;
+    }    
 `
