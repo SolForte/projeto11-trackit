@@ -13,12 +13,13 @@ export default function Footer(){
             <SubContainer>
 
                 <Link to="/habitos">
-                    <p>Hábitos</p>
+                    <MenuButton>Hábitos</MenuButton>
                 </Link>
                 
                 <Link to="/hoje">
+
                     <Circular>
-                        <CircularProgressbar value={userProgress} text="Hoje" styles={
+                        <CircularProgressbar value={userProgress} styles={
                         {
                         path:{stroke: "#ffffff"},
                         text: 
@@ -30,11 +31,13 @@ export default function Footer(){
                         }}
                         }
                         />
+                        <p>Hoje</p>
                     </Circular>
+                
                 </Link>
                 
                 <Link data-test="history-link" to="/historico">
-                    <p>Histórico</p>
+                    <MenuButton>Histórico</MenuButton>
                 </Link>
 
             </SubContainer>
@@ -43,29 +46,34 @@ export default function Footer(){
 }
 
 const Circular = styled.div`
-
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     width: 91px;
     height: 91px;
     box-sizing: border-box;
     background-color: #52B6FF;
-    border-radius: 50%;
+    border-radius: 100%;
     position: absolute;
-    
     bottom: 10px;
     left: 50%;
     transform: translate(-50%,-10%);
+    p{
+        position: absolute;
+        left: 50%;
+        bottom: 40%;
+        transform: translate(-50%,-0%);
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 17.976px;
+        line-height: 22px;
+        text-align: center;
+        color: #FFFFFF
+    }
 `
 
 const Container = styled.div`
-    opacity: 0.2;
+    opacity: 1;
     width: 100vw;
     height: 70px;
-    background-color: blue;
+    background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -80,15 +88,17 @@ const SubContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0px 31px 0px 36px;
-    p{
+    a{
+        text-decoration:none;
+    }
+`
+const MenuButton = styled.button`
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
         font-size: 17.976px;
         line-height: 22px;
         text-align: center;
         color: #52B6FF;
-    }
-    a{
-        text-decoration:none;
-    }
+        background-color: #ffffff;
+        border: none;
 `
