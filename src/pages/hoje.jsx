@@ -55,7 +55,9 @@ export default function Hoje() {
     const hoje = new Date();
     const dia = DIAS_DA_SEMANA[hoje.getDay()];
     const data = hoje.getDate();
+    //Adiçãode +1 pois getMonth() é zero indexed e.g. Janeiro = 0 e Dezembro = 12
     const mes = hoje.getMonth() + 1;
+    //Ternário para adicionar 0 antes dos dias/meses menos que 10 para ver se resolve avaliador do HUB
     return `${dia}, ${data < 10 ? "0" + data : data}/${
       mes < 10 ? "0" + mes : mes
     }`;

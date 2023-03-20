@@ -4,11 +4,7 @@ import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { UserProgress } from "../contexts/UserProgress";
 
-export default function Diarias({
-  habitsList,
-  refresh,
-  setRefresh,
-}) {
+export default function Diarias({ habitsList, refresh, setRefresh }) {
   const { setUserProgress } = useContext(UserProgress);
   const { userData } = useContext(UserContext);
 
@@ -74,6 +70,7 @@ export default function Diarias({
     });
   }
 
+  //Ctrl+LMB(Left-Click) nos styled components "Sequence" e "RecordSequence" para observar lógica de estilização
   return habitsList.map((habito, index) => {
     return (
       <Caixa data-test="today-habit-container" key={index}>
@@ -126,7 +123,9 @@ const Sequence = styled.span`
 //Caso a sequência atual seja igual ao recorde do usuário e maior que zero, este também deve ser exibido em verde
 const RecordSequence = styled.span`
     color: ${(props) =>
-      props.atual >= props.recorde && props.atual !== 0 ? "#8FC549" : "#666666"};
+      props.atual >= props.recorde && props.atual !== 0
+        ? "#8FC549"
+        : "#666666"};
 `;
 
 const Titulo = styled.p`
