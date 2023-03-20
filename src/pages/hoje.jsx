@@ -13,49 +13,39 @@ import Diarias from "../components/daillies";
 
 export default function Hoje(){
 
-
     const {userData} = useContext(UserContext);
-    const [habitsList, setHabitsList] = useState([]);
     const {userProgress} = useContext(UserProgress);
     const {setUserProgress} = useContext(UserProgress);
+
+    const [habitsList, setHabitsList] = useState([]);
+    const [refresh, setRefresh] = useState(0);
+
     const navigate = useNavigate();
 
     const DIAS_DA_SEMANA = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta"]
+    const HOJE = `${DIAS_DA_SEMANA[dayjs().day()]}, ${dayjs().date()}/${dayjs().month()+1}`
 
     useEffect(()=>{
         fetchHabits()
-        console.log("Hoje fetch")
-    },[])
-
-    const HOJE = `${DIAS_DA_SEMANA[dayjs().day()]}, ${dayjs().date()}/${dayjs().month()+1}`
+    },[refresh])
 
     function fetchHabits(){
 
         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
 
         const habits = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config);
-
         habits.then(
             (resposta) => {
                 setHabitsList(resposta.data);
-                calculoProgresso(resposta.data);
             }
         )
         habits.catch(
             (resposta) => {
-                //alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
+                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
                 navigate("/")
             }
         )
     }
-
-    function calculoProgresso(habitsList){
-        const porcento = 100;
-        const completos = (habitsList.filter((elemento)=>(elemento.done === true)).length);
-        setUserProgress(Math.floor((completos/habitsList.length)*porcento))
-    }
-
-
 
     return(
     <Main>
@@ -67,25 +57,21 @@ export default function Hoje(){
                 </p>
             </TopMenu>
 
-            <PorcentagemConcluida cor={userProgress !== 0}>
-                {userProgress !== 0
+            <PorcentagemConcluida cor={userProgress !== 0 && !isNaN(userProgress)}>
+                {userProgress !== 0 && userProgress !== undefined && userProgress !== null && !isNaN(userProgress)
                 ? `${userProgress}% dos hábitos concluídos` 
                 : `Nenhum hábito concluído ainda`
                 }
             </PorcentagemConcluida>
             
             <DaillyGap>
-            {habitsList.map(
-                (habito, index) => {
-                    return (
-                        <Diarias 
-                            key={index}
-                            habito={habito}
+                        <Diarias
                             habitsList={habitsList}
-                            setHabitsList={setHabitsList}/>
-                    )
-                }
-            )}
+                            setHabitsList={setHabitsList}
+                            refresh={refresh}
+                            setRefresh={setRefresh}
+                        > 
+                        </Diarias>
             </DaillyGap>
         </Container>
         <Footer/>
