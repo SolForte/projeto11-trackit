@@ -31,7 +31,6 @@ export default function Hoje() {
 
   useEffect(() => {
     fetchHabits();
-    console.log("fetchHabits useEffect from hoje");
   }, [refresh]);
 
   function fetchHabits() {

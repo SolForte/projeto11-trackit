@@ -38,8 +38,6 @@ export default function Diarias({
       headers: { Authorization: `Bearer ${userData.token}` },
     };
 
-    console.log("Marcado!");
-
     const check = axios.post(
       `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`,
       body,
@@ -48,7 +46,6 @@ export default function Diarias({
     check.then((resposta) => {
       console.log(resposta);
       setRefresh(!refresh);
-      console.log("Marcar");
       calculoProgresso(habitsList);
     });
     check.catch((resposta) => {
@@ -62,8 +59,6 @@ export default function Diarias({
       headers: { Authorization: `Bearer ${userData.token}` },
     };
 
-    console.log("Desmarcado!");
-
     const uncheck = axios.post(
       `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`,
       body,
@@ -72,7 +67,6 @@ export default function Diarias({
     uncheck.then((resposta) => {
       console.log(resposta);
       setRefresh(!refresh);
-      console.log("Desmarcar");
       calculoProgresso(habitsList);
     });
     uncheck.catch((resposta) => {
@@ -132,7 +126,7 @@ const Sequence = styled.span`
 //Caso a sequência atual seja igual ao recorde do usuário e maior que zero, este também deve ser exibido em verde
 const RecordSequence = styled.span`
     color: ${(props) =>
-      props.atual !== 0 && props.atual >= props.recorde ? "#8FC549" : "#666666"};
+      props.atual >= props.recorde && props.atual !== 0 ? "#8FC549" : "#666666"};
 `;
 
 const Titulo = styled.p`
