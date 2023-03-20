@@ -64,7 +64,7 @@ export default function Habitos() {
       corpo,
       config
     );
-    create.then((resposta) => {
+    create.then(() => {
       fetchHabits();
       setLoading(false);
       setCriacao(false);

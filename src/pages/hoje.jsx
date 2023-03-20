@@ -71,7 +71,6 @@ export default function Hoje() {
         >
           {userProgress !== 0 &&
           userProgress !== undefined &&
-          userProgress !== null &&
           !isNaN(userProgress)
             ? `${userProgress}% dos hábitos concluídos`
             : `Nenhum hábito concluído ainda`}

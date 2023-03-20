@@ -12,26 +12,6 @@ export default function Diarias({
 }) {
   const { setUserProgress } = useContext(UserProgress);
   const { userData } = useContext(UserContext);
-  const [marcado, setMarcado] = useState(false);
-
-  const HabitsListexemplo = [
-    {
-      id: 57256,
-      name: "2nd",
-      done: true,
-      currentSequence: 1,
-      highestSequence: 1,
-    },
-    {
-      id: 57257,
-      name: "3rd",
-      done: false,
-      currentSequence: 0,
-      highestSequence: 0,
-    },
-  ];
-
-  const exemploRecorde = 2;
 
   useEffect(() => {
     {

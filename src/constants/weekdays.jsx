@@ -6,4 +6,4 @@ export const weekdays = [
     { dia: "Q", status: false },
     { dia: "S", status: false },
     { dia: "S", status: false },
-  ];  
+  ];
