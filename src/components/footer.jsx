@@ -62,9 +62,10 @@ const Circular = styled.div`
 `
 
 const Container = styled.div`
+    opacity: 0.2;
     width: 100vw;
     height: 70px;
-    background-color: #FFFFFF;
+    background-color: blue;
     display: flex;
     justify-content: center;
     position: fixed;

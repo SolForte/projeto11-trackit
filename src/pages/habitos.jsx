@@ -19,7 +19,7 @@ export default function Habitos(){
 
     const [criacao, setCriacao] = useState(false);
 
-    const [semana, setSemana] = useState(weekdays);
+    const semana = ([...weekdays]);
     const [diasSelecionados, setDiasSelecionados] = useState([]);
     
     const [habitName, setHabitName] = useState("")
@@ -28,7 +28,7 @@ export default function Habitos(){
     
     useEffect(()=>{
         fetchHabits()
-    },[])
+    })
 
     function fetchHabits(){
         const config = {headers: {Authorization: `Bearer ${userData.token}`}};
@@ -41,7 +41,7 @@ export default function Habitos(){
         )
         habits.catch(
             (resposta) => {
-                //alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
+                alert(`Erro ${resposta.response.status} - ${resposta.response.data.message}`)
                 navigate("/")
             }
         )
@@ -79,12 +79,11 @@ export default function Habitos(){
     return(
         <Main>
             <Header/>
-            <Content>
                 <CreationMenu>
-                <p>Meus Hábitos</p>
-                <button onClick={()=>setCriacao(true)}>
-                    <p>+</p>
-                </button>
+                    <p>Meus Hábitos</p>
+                    <button onClick={()=>setCriacao(true)}>
+                        <p>+</p>
+                    </button>
                 </CreationMenu>
 
           
@@ -92,15 +91,13 @@ export default function Habitos(){
                 ? 
                 <Criacao>
 
-                    
-
                     <input 
                         placeholder="Nome do hábito"
                         value={habitName}
                         onChange={(event) => setHabitName(event.target.value)}
                     />
                     
-                    <ButtonEncloserContainer>
+                    <WeekdayButtonsContainer>
 
                         {semana.map(
                             (value, index) => {
@@ -118,7 +115,7 @@ export default function Habitos(){
                             }
                         )}
 
-                    </ButtonEncloserContainer>
+                    </WeekdayButtonsContainer>
 
                     <CancelAcceptContainer>
                             <Cancelar onClick={()=>setCriacao(false)}>Cancelar</Cancelar>
@@ -133,9 +130,6 @@ export default function Habitos(){
                                     {loading ? <Loading/> : "Salvar"}
                             </Salvar>
                     </CancelAcceptContainer>
-
-                    
-
 
                 </Criacao>
                 : <></>
@@ -181,7 +175,8 @@ export default function Habitos(){
 
                                     {semana.map(
                                             (dia, index) => (
-                                                <HabitDias 
+                                                <HabitDias
+                                                    disabled={true}
                                                     statusBotao={element.days.includes(index)}
                                                     key={index}>
                                                         {dia.dia}
@@ -206,7 +201,7 @@ export default function Habitos(){
                 
             </HabitsContainer>} 
 
-            </Content>
+            
             <Footer/>
         </Main>
     )
@@ -229,6 +224,9 @@ const HabitDias = styled.button`
         font-weight: 400;
         font-size: 19.976px;
         line-height: 25px;
+        :disabled{
+            cursor: default;
+        }
 `
 
 const HabitName = styled.p`
@@ -246,6 +244,7 @@ const Lixo = styled.div`
     position: absolute;
     top: 11px;
     right: 10px;
+    cursor: pointer;
 `
 
 const HabitBox = styled.div`
@@ -263,16 +262,13 @@ const HabitsContainer = styled.div`
     gap: 10px;
     align-items: center;
     margin-top: 22px;
-    //margin bottom here?
 `
 
 const CancelAcceptContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    position: absolute;
-    bottom: 15px;
-    right: 16px;
+    padding: 29px 16px 15px 0px;
     button{
         outline: none;
         border: none;
@@ -297,17 +293,16 @@ const Salvar = styled.button`
     color: #FFFFFF;
     background-color: #52B6FF;`
     
-const ButtonEncloserContainer = styled.div`
-    display: flex;
+
+const WeekdayButtonsContainer = styled.div`
+    padding-left: 14px;
     gap: 4px;
-    box-sizing: border-box;
-    padding: 0px 18px 0px 19px;
+    display: flex;
 `
 
 const Criacao = styled.div`
     margin-top: 20px;
     width: 340px;
-    height: 180px;
     background: #FFFFFF;
     border-radius: 5px;
     position: relative;
@@ -331,29 +326,21 @@ const Criacao = styled.div`
 `
 
 const Main = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #E5E5E5;
     width: 100vw;
-    height: 100vh;
-    margin-top: 70px;
-    padding-top: 22px;
-`
-
-const Content = styled.div`
+    margin-bottom: 178px;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
 `
 
 const CreationMenu = styled.div`
-    width: 375px;
+    padding-top: 92px;
+    width: 340px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-    padding: 0px 18px 0px 17px;
     p{
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;

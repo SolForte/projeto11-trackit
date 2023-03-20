@@ -43,6 +43,7 @@ export default function Cadastro(){
     }
 
     return(
+        <Encloser>
         <Main>
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performCadastro}>
@@ -86,8 +87,17 @@ export default function Cadastro(){
                 Já tem uma conta? Faça login!
             </Link>
         </Main> 
+        </Encloser>
     )
 }
+
+const Encloser = styled.div`
+    background-color: #ffffff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+`
 
 const Main = styled.div`
     width: 375px;

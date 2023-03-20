@@ -28,7 +28,7 @@ export default function Login(){
             (resposta) => {
                 setUserData(resposta.data);
                 setLoading(false);
-                navigate("/hoje")
+                navigate("/habitos")
             }
         )
         login.catch(
@@ -40,6 +40,7 @@ export default function Login(){
     }
 
     return(
+        <Encloser>
         <Main>
             <img src={logo} alt="TrackIt Logo"/>
                 <form onSubmit={performLogin}>
@@ -67,8 +68,17 @@ export default function Login(){
                 Não tem uma conta? Cadastre-se!
             </Link>
         </Main> 
+        </Encloser>
     )
 }
+
+const Encloser = styled.div`
+    background-color: #ffffff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+`
 
 const Main = styled.div`
     width: 375px;
